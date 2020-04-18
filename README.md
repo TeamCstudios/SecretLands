@@ -1,2 +1,6 @@
-# SecretLands
-Repo for The Secret Lands game.
+# Secret Lands
+
+## Changelog
+### Omega
+#### v1.0.0
+- initial release
