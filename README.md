@@ -2,6 +2,13 @@
 
 ## Changelog
 ### Omega
+#### v1.2.0
+- Add Frozen Ocean biome
+- Add Iceman powerup and Iceman form. (think Super Mario Galaxy Ice Flower)
+- Make Sprinter form actually *faster* instead of just slippery.
+- Add ice and ice physics.
+- Add form cooldowns.
+- Add Europa preset
 #### v1.1.0
 [Download Build - Windows](https://github.com/TeamCstudios/SecretLands/raw/master/builds/omega/thesecretlands-omega-1-1-0-WINDOWS.zip)
 [Download Build - OSX] Coming Soon
