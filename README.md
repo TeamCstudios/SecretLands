@@ -2,6 +2,20 @@
 
 ## Changelog
 ### Omega
+#### v1.3.0
+[Download Build - Windows]()
+[Download Build - OSX]()
+[Download Build - Linux]()
+- You can now use WASD.
+- Add the inventory and inventory screen
+- Add Wood and Stone items
+- Can now chop forests for wood. (Normal / Sprinter forms)
+- Can now mine mountains for stone. (Climber form)
+- Powerups now are moved to your inventory instead of activating immediately, so you don't die from pickup up a powerup anymore
+- Model flashes while cooldown is close to over
+- Controls on title screen
+- You can now place stone or wood blocks now.
+- Add Screenshots!!!!!!!
 #### v1.2.0
 [Download Build - Windows](https://github.com/TeamCstudios/SecretLands/raw/master/builds/omega/thesecretlands-omega-1-2-0-WINDOWS.zip)
 [Download Build - OSX](https://github.com/TeamCstudios/SecretLands/raw/master/builds/omega/thesecretlands-omega-1-2-0-OSX.zip)
