@@ -3,9 +3,9 @@
 ## Changelog
 ### Omega
 #### v1.3.0
-[Download Build - Windows]()
-[Download Build - OSX]()
-[Download Build - Linux]()
+[Download Build - Windows](https://github.com/TeamCstudios/SecretLands/raw/master/builds/omega/thesecretlands-omega-1-3-0-WINDOWS.zip)
+[Download Build - OSX]
+[Download Build - Linux](https://github.com/TeamCstudios/SecretLands/raw/master/builds/omega/thesecretlands-omega-1-3-0-LINUX.zip)
 - You can now use WASD.
 - Add the inventory and inventory screen
 - Add Wood and Stone items
