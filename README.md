@@ -2,6 +2,9 @@
 
 ## Changelog
 ### Omega
+#### v1.4.1
+- Fix #3
+- Changed object spawn rates
 #### v1.4.0
 - Add FPS counter.
 - Improve FPS, massively. ~20 to ~50.
