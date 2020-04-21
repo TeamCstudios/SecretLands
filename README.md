@@ -1,6 +1,12 @@
 # Secret Lands
 
 ## Changelog
+### Release
+not reached yet!
+### Beta
+not reached yet!
+### Alpha
+not reached yet!
 ### Omega
 #### v1.4.1
 - Fix #3
