@@ -8,6 +8,13 @@ not reached yet!
 ### Alpha
 not reached yet!
 ### Omega
+#### v1.5.0
+- Add Apples, an item that can heal you.
+- Increase max health from 10 to 16.
+- Fix health bar in general.
+- Add Cacti, an object that hurts you.
+- Add house structure.
+- Hopefully fix #2
 #### v1.4.1
 - Fix #3
 - Changed object spawn rates
