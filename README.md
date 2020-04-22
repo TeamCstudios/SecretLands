@@ -8,6 +8,9 @@ not reached yet!
 ### Alpha
 not reached yet!
 ### Omega
+#### v1.5.1
+- Fix #5
+- Music now plays.
 #### v1.5.0
 - Add Apples, an item that can heal you.
 - Increase max health from 10 to 16.
