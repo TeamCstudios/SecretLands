@@ -65,7 +65,7 @@ void terrainGenSetup() {
   else if (preset == 7){l = .4;wl = 0.8;tl = 0.5;bl = 0.55;} 
   else if (preset == 8){l = random(1);wl = random(1);tl = random(1);bl = random(1);bc = random(.5);} 
   else if (preset == 9){wl = 0.2;tl = 0.001;l = .6;bl = 0.9;bc = 0.01;} 
-  else if (preset == 11){c0 = .1;}
+  else if (preset == 10){l = x1;wl = x3;tl = x2;bl = x4;bc = x5 * 0.1;} 
 }
 
 //Generate the terrain

@@ -26,6 +26,26 @@ void framecounter(){
   }
 }
 
+void versionz(){
+  String[] updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/updates.sldat");
+  String latestUpdateCode = "";
+  if(updates[0].contains("Omega")){
+    latestUpdateCode = "o";
+  }else if(updates[0].contains("Alpha")){
+    latestUpdateCode = "a";
+  }else if(updates[0].contains("Beta")){
+    latestUpdateCode = "b";
+  }else if(updates[0].contains("Release")){
+    latestUpdateCode = "v";
+  }
+  latestUpdateCode = latestUpdateCode + updates[1] + updates[2] + updates[3];
+  if(latestUpdateCode.equals(verCode)){
+    isLatestRelease = true;
+  }else{
+    isLatestRelease = false;
+  }
+  test = updates[0] + " " + updates[1] + "." + updates[2] + "." + updates[3];
+}
 void nameWorld(){
   if(preset == 0){
     worldName = "default" + int(random(8999) + 1000);
@@ -47,6 +67,8 @@ void nameWorld(){
     worldName = "chaos" + int(random(8999) + 1000);
   }else if(preset == 9){
     worldName = "europa" + int(random(8999) + 1000);
+  }else if(preset == 10){
+    worldName = "customized" + int(random(8999) + 1000);
   }
 }
 

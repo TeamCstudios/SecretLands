@@ -8,10 +8,12 @@ void inventory(){
   textSize(14);
   text("Wood:",20,120);
   text("Stone:",20,140);
-  text("Apple [B]:",20,160);
+  text("Apple [B]:",20,180);
+  text("Coal:",20,160);
   text("" + inventory[1],70,120);
   text("" + inventory[2],70,140);
-  text("" + inventory[3],90,160);
+  text("" + inventory[4],70,160);
+  text("" + inventory[3],90,180);
   textSize(14);
   if(playerColor == 1){
     text("Normal",500,110);

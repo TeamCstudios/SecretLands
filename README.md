@@ -8,6 +8,12 @@ not reached yet!
 ### Alpha
 not reached yet!
 ### Omega
+#### v1.6.0
+- Add update checker.
+- Fix pseudo-freeze on world generation.
+- Add Customized presets and menu for them.
+- Fix lag spike when loading music during gameplay.
+- Add coal ore and coal item.
 #### v1.5.1
 - Fix #5
 - Music now plays.

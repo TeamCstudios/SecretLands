@@ -3,7 +3,7 @@ import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
 int xpos;int ypos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; SoundFile music1;
-final String verCode = "o151"; String worldName; String textEntry = ""; byte b[];
+final String verCode = "o160"; String worldName; String textEntry = ""; String test; boolean isLatestRelease;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -16,13 +16,8 @@ void setup(){
   frameRate(60);
   background(255);
   textSize(36);
-  text("Loading files from the cloud, please wait...",150,300);
-  b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20Wandering%20A.mp3");
-  if(isOSX){
-    saveBytes("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "music/MrJoCrafter - Wandering A.mp3", b);
-  }else{
-    saveBytes("music/MrJoCrafter - Wandering A.mp3", b);
-  }
+  loadMusic();
+  versionz();
 }
 
 void draw(){
@@ -38,6 +33,12 @@ void draw(){
     textSize(36);
     text("World Generation: <-" + preset + "->",20,300);
     text("Press SHIFT for New Game, Press CONTROL to continue.",20,660);
+    textSize(16);
+    if(isLatestRelease){
+      text("You are on the latest version.",300,75);
+    }else{
+      text("You are not on the latest version, " + test,300,75);
+    }
     textSize(10);
     text("0: Normal",20,320);
     text("1: Southwestern Europe",20,330);
@@ -49,10 +50,11 @@ void draw(){
     text("7: China",20,390);
     text("8: Random (unstable)",20,400);
     text("9: Europa",20,410);
+    text("10: Customized (choose your own settings)",20,420);
     text("The Secret Lands belongs to Team CStudios Organization.",700,200);
     text("All programming created by MrJoCrafter (2020-)",700,210);
     text("Terrain algorithm by Yoctobyte and MrJoCrafter (2017-2019)",700,220);
-    text("Soundtrack by Takijana (2020-)",700,230);
+    text("Soundtrack by Takijana and MrJoCrafter(2020-)",700,230);
     text("Controls",600,400);
     text("Arrow Keys / WASD: Move/Select",600,410);
     text("E: Mine",600,420);
@@ -74,9 +76,9 @@ void draw(){
     nameWorld();
     createObjects();
     drawTerrain();
-    while(tileValue <= 7 || tileValue >= 16){
+    while(tileValue < 7 || tileValue >= 16){
       xpos = int(random(mapSize));
-      ypos = int(random(1000));
+      ypos = int(random(mapSize));
       drawTerrain();
     }
     scene = 3;
@@ -129,10 +131,15 @@ void draw(){
     text("Press SHIFT to load world and ALT to clear selection.",10,470);
     textSize(36);
     text(textEntry,100,370);
+  }else if (scene == 10){
+    customMenu();
+    fill(255);
+    textSize(36);
+    text("Press CONTROL to continue.",20,660);
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.5.0 Omega",800,690);
+  text("The Secret Lands, Version 1.6.0 Omega",800,690);
   if(scene == 3){
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "}",10,690);
     if(selection == 0){  
@@ -251,12 +258,18 @@ void keyPressed(){
         if(tileValue == 6){
           inventory[2]++;
           map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 7;
+          if(objectValue == 8){
+            inventory[4]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
         }
       }
     }
   }else if(scene == 0){
     if(keyCode == RIGHT){
-      if(preset < 9){
+      if(preset < 10){
         preset++;
       }
     } 
@@ -266,10 +279,84 @@ void keyPressed(){
       }
     }
     if(keyCode == SHIFT){
-      scene = 1;
+      if(preset == 10){
+        scene = 10;
+      }else{
+        scene = 1;
+      }
     }
     if(keyCode == CONTROL){
       scene = 8;
+    }
+  }else if(scene == 10){
+    if(keyCode == DOWN){
+      if(leSelection < 5){
+        leSelection++;
+      }
+    } 
+    if(keyCode == UP){
+      if(leSelection > 1){
+        leSelection--;
+      }
+    }
+    if(leSelection == 1){
+      if(keyCode == RIGHT){
+        if(x1 < 1.0){
+          x1 += 0.1;
+        }
+      }
+      if(keyCode == LEFT){
+        if(x1 > 0.1){
+          x1 -= 0.1;
+        }
+      }
+    }else if(leSelection == 2){
+      if(keyCode == RIGHT){
+        if(x2 < 1.0){
+          x2 += 0.1;
+        }
+      }
+      if(keyCode == LEFT){
+        if(x2 > 0.1){
+          x2 -= 0.1;
+        }
+      }
+    }else if(leSelection == 3){
+      if(keyCode == RIGHT){
+        if(x3 < 1.0){
+          x3 += 0.1;
+        }
+      }
+      if(keyCode == LEFT){
+        if(x3 > 0.1){
+          x3 -= 0.1;
+        }
+      }
+    }else if(leSelection == 4){
+      if(keyCode == RIGHT){
+        if(x4 < 1.0){
+          x4 += 0.1;
+        }
+      }
+      if(keyCode == LEFT){
+        if(x4 > 0.1){
+          x4 -= 0.1;
+        }
+      }
+    }else if(leSelection == 5){
+      if(keyCode == RIGHT){
+        if(x5 < 1.0){
+          x5 += 0.1;
+        }
+      }
+      if(keyCode == LEFT){
+        if(x5 > 0.1){
+          x5 -= 0.1;
+        }
+      }
+    }
+    if(keyCode == CONTROL){
+      scene = 1;
     }
   }else if(scene == 5){
     if(keyCode == SHIFT){
