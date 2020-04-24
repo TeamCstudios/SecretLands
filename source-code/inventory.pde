@@ -10,10 +10,14 @@ void inventory(){
   text("Stone:",20,140);
   text("Apple [B]:",20,180);
   text("Coal:",20,160);
+  text("Copper:",20,200);
+  text("Iron:",20,220);
   text("" + inventory[1],70,120);
   text("" + inventory[2],70,140);
   text("" + inventory[4],70,160);
   text("" + inventory[3],90,180);
+  text("" + inventory[5],90,200);
+  text("" + inventory[6],90,220);
   textSize(14);
   if(playerColor == 1){
     text("Normal",500,110);

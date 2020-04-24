@@ -1,6 +1,7 @@
 void initialize(){
   xpos = mapSize / 2;
   ypos = mapSize / 2;
+  zpos = 0;
   selection = 0;
   playerColor = 1;
   for(int i = 0; i < 30; i++){
@@ -23,6 +24,36 @@ void framecounter(){
   }
   if(framecounter == 0){
     framerate = int((frameCount/* - frameStorage */) / ((millis()/* - 1000 * timeStorage */) / 1000));
+  }
+}
+
+void worldnames(){
+  String[] updates;
+  String lol = worldName;
+  if(isOSX){
+    updates = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat");
+  }else{
+    updates = loadStrings("profile/worldnames.sldat");
+  }
+  if(updates == null){
+    String[] newU = new String[1];
+    newU[newU.length - 1] = lol;
+    if(isOSX){
+      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat",newU);
+    }else{
+      saveStrings("profile/worldnames.sldat",newU);
+    }
+  }else{
+    String[] newU = new String[updates.length + 1];
+    for(int i = 0; i < newU.length - 1; i++){
+      newU[i] = updates[i];
+    }
+    newU[newU.length - 1] = lol;
+    if(isOSX){
+      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat",newU);
+    }else{
+      saveStrings("profile/worldnames.sldat",newU);
+    }
   }
 }
 

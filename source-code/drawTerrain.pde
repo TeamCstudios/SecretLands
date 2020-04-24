@@ -28,20 +28,26 @@ Ocean:
 */
 
 final int mapSize = 1000;
-int[][] map = new int[mapSize + 1][mapSize + 1];
+int[][][] map = new int[mapSize + 1][mapSize + 1][2];
 
 void drawTerrain(){
   int value = 0;
   for(int i = 0; i < (width / xFOV); i++){for(int j = 0; j < (height / xFOV); j++){
     if(xpos+i > mapSize || xpos+i < 1 || ypos+j > mapSize || ypos+j < 1 || ypos+j > 990){
-      fill(0,0,240);
-      value = 17;
+      if(zpos == 0){
+        value = 17;
+      }else{
+        value = 0;
+      }  
     }else{
-      value = map[xpos+i][ypos+j];
+      value = map[xpos+i][ypos+j][zpos];
     }
     if(value == 1){fill(250,10,10);}
+    else if(value == 0){fill(50);}
     else if(value == -1){fill(145,99,7);stroke(0);}
     else if(value == -2){fill(160);stroke(0);}
+    else if(value == -5){fill(245,149,98);stroke(0);}
+    else if(value == -6){fill(209,194,182);stroke(0);}
     else if(value == 2){fill(60);}
     else if(value == 3){fill(70);}
     else if(value == 4){fill(80);}
@@ -74,6 +80,12 @@ void drawTerrain(){
           } else if(selection == 2){
             fill(160);
             stroke(0);
+          } else if(selection == 5){
+            fill(245,149,98);
+            stroke(0);
+          } else if(selection == 6){
+            fill(209,194,182);
+            stroke(0);
           }
         }
       }
@@ -90,6 +102,12 @@ void drawTerrain(){
             stroke(0);
           } else if(selection == 2){
             fill(160);
+            stroke(0);
+          } else if(selection == 5){
+            fill(245,149,98);
+            stroke(0);
+          } else if(selection == 6){
+            fill(209,194,182);
             stroke(0);
           }
         }
@@ -108,6 +126,12 @@ void drawTerrain(){
           } else if(selection == 2){
             fill(160);
             stroke(0);
+          } else if(selection == 5){
+            fill(245,149,98);
+            stroke(0);
+          } else if(selection == 6){
+            fill(209,194,182);
+            stroke(0);
           }
         }
       }
@@ -124,6 +148,12 @@ void drawTerrain(){
             stroke(0);
           } else if(selection == 2){
             fill(160);
+            stroke(0);
+          } else if(selection == 5){
+            fill(245,149,98);
+            stroke(0);
+          } else if(selection == 6){
+            fill(209,194,182);
             stroke(0);
           }
         }

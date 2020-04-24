@@ -2,8 +2,8 @@ import processing.net.*;
 import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
-int xpos;int ypos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; SoundFile music1;
-final String verCode = "o160"; String worldName; String textEntry = ""; String test; boolean isLatestRelease;
+int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; 
+final String verCode = "o170"; String worldName; String textEntry = ""; String test; boolean isLatestRelease;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -14,8 +14,10 @@ void settings(){
 }
 void setup(){
   frameRate(60);
-  background(255);
+  background(105,55,155);
   textSize(36);
+  fill(0);
+  text("Loading files from the cloud...",10,450);
   loadMusic();
   versionz();
 }
@@ -73,7 +75,9 @@ void draw(){
     background(100);
     terrainGenSetup();
     terrainGenDraw();
+    terrainGenDrawCaves();
     nameWorld();
+    worldnames();
     createObjects();
     drawTerrain();
     while(tileValue < 7 || tileValue >= 16){
@@ -93,13 +97,14 @@ void draw(){
     framecounter();
     drawHealth();
     checkDeath();
-    if(music1 == null){
-      if(random(1) > .8){
-        music1();
+    if(!(music1.isPlaying()) && !(music2.isPlaying()) && !(music3.isPlaying()) && zpos == 0){
+      if(random(1) > .98){
+        wandering();
       }
-    }else if(!(music1.isPlaying())){
-      if(random(1) > .8){
-        music1();
+    }
+    if(!(music4.isPlaying()) && zpos == 1){
+      if(random(1) > .98){
+        caves();
       }
     }
   }else if(scene == 4){
@@ -125,6 +130,19 @@ void draw(){
     scene = 3;
   }else if (scene == 8){
     background(100);
+    textSize(13);
+    String[] xc;
+    if(isOSX){
+      xc = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat");
+    }else{
+      xc = loadStrings("profile/worldnames.sldat");
+    }
+    String xcx = "[";
+    for(int i = 0; i < xc.length; i++){
+      xcx = xcx + xc[i] + ",";
+    }
+    xcx = xcx + "]";
+    text(xcx,10,20);
     textSize(26);
     text("Enter the name of your world, without the -" + verCode + " to load your save.",10,250);
     text("If you forgot the name of your world, look in /saves.",10,280);
@@ -139,15 +157,19 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.6.0 Omega",800,690);
+  text("The Secret Lands, Version 1.7.0 Omega",800,690);
   if(scene == 3){
-    text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "}",10,690);
+    text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
       text("Placing: None",470,690);
     }else if(selection == 1){  
       text("Placing: Wood",470,690);
     }else if(selection == 2){  
       text("Placing: Stone",470,690);
+    }else if(selection == 5){  
+      text("Placing: Copper",470,690);
+    }else if(selection == 6){  
+      text("Placing: Iron",470,690);
     }
     textSize(25);
     text(framerate + "FPS",910,25);
@@ -175,7 +197,14 @@ void keyPressed(){
     }
     if(key == 'i' || key == 'I'){
       scene = 4;
-    }   
+    } 
+    if(key == 'l' || key == 'L'){
+      if(zpos == 0){
+        zpos++;
+      }else{
+        zpos--;
+      }
+    } 
     if(key == 'x' || key == 'X'){
       if(selection == 0){
         if(inventory[1] > 19){
@@ -190,6 +219,18 @@ void keyPressed(){
           selection = 0;
         }
       }else if(selection == 2){
+        if(inventory[5] > 19){
+          selection = 5;
+        }else{
+          selection = 0;
+        }
+      }else if(selection == 5){
+        if(inventory[6] > 19){
+          selection = 6;
+        }else{
+          selection = 0;
+        }
+      }else if(selection == 6){
         selection = 0;
       }
     }
@@ -214,7 +255,7 @@ void keyPressed(){
     if(keyCode == SHIFT){
       if(inventory[selection] > 19){
         if(!(tileSelectedValue < 2 || (tileSelectedValue >= 16 && tileSelectedValue < 18))){
-          map[selX][selY] = selection * -1;
+          map[selX][selY][zpos] = selection * -1;
           inventory[selection] -= 20;
           if(inventory[selection] < 20){
             selection = 0;
@@ -224,42 +265,54 @@ void keyPressed(){
     }
     if(key == 'e' || key == 'E'){
       if(tileSelectedValue < 0 && selection != 0){
-        map[selX][selY] = tileValue;
+        map[selX][selY][zpos] = tileValue;
         inventory[-1 * tileSelectedValue] += 20;
       }else if(playerColor == 1 || playerColor == 4){
         if(tileValue == 15){
           inventory[1]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 8;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 8;
         }
         if(tileValue == 14){
           inventory[1]++;
           if(random(1) > .3){
             inventory[1]++; 
           }
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 9;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 9;
         }
       } else if (playerColor == 3){
         if(tileValue == 2){
           inventory[2]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 3;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 3;
         }
         if(tileValue == 3){
           inventory[2]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 4;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 4;
         }
         if(tileValue == 4){
           inventory[2]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 5;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 5;
         }
         if(tileValue == 5){
           inventory[2]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 6;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 6;
         }
         if(tileValue == 6){
           inventory[2]++;
-          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 7;
+          map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 7;
           if(objectValue == 8){
             inventory[4]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
+          if(objectValue == 9){
+            inventory[5]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
+          if(objectValue == 10){
+            inventory[6]++;
             objectxpos[currentObjectID] = 0;
             objectypos[currentObjectID] = 0;
             objectvalue[currentObjectID] = 0;

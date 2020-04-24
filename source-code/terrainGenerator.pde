@@ -18,6 +18,7 @@ final int xFOV = 10;
 int preset = 0;
 float s = 1;
 float l = 0.5;
+float cxl = 0.499;
 float bc = 0.04;
 float speed = mapSize * 1000;
 float x = 0;
@@ -56,6 +57,7 @@ void terrainGenSetup() {
   x = 0;
   y = -s;
   noStroke(); 
+  l = 0.5; bl = 0.6; tl = 0.5; wl = 0.50; bc = 0.04;
   if (preset == 1){l = 0.299;tl = 0.6;} 
   else if (preset == 2){l =  0.189;tl = 0.6;} 
   else if (preset == 3){l = 0.45;tl = 0.9;wl = 0.2;bc = 0.1;bl = 0.8;} 
@@ -86,7 +88,7 @@ void terrainGenDraw() {
     z = 3;
   }else if(r0 > l*1.8){
     // Mountain
-    z = 4;
+    z = 4; 
   }else if(r0 > l*1.7){
     // Mountain
     z = 5;
@@ -143,7 +145,32 @@ void terrainGenDraw() {
       z = 16;
     }
   }
-  map[int(x)][int(y) + 1] = z; 
+  map[int(x)][int(y) + 1][0] = z; 
   x += s;
   if(x > mapSize) { x = 0; y += s; t0 = 1;  t1 += c1; bt1 += bc1; bt0 = 1; wt1 += wc1; wt0 = 1; tt1 += tc1; tt0 = 1;}
-  t0 += c0; bt0 += bc0; wt0 += wc0; tt0 += tc0;}}
+  t0 += c0; bt0 += bc0; wt0 += wc0; tt0 += tc0;}
+}
+
+void terrainGenDrawCaves() { 
+  x = 0;
+  y = -s;
+  int z = 0; for(int i = 0; i < speed; i ++) {
+  r0 = noise(t0,t1);
+  if(r0 > cxl*2.1){
+    // Volcano
+    z = 1;
+  }else if(r0 > cxl && r0 < cxl*1.1){ 
+    // Stone
+    z = 6;
+  }else if(r0 < cxl){
+    // Floors
+    z = 7;
+  }else{
+    //Cave Walls
+    z = 0;
+  }
+  map[int(x)][int(y) + 1][1] = z; 
+  x += s;
+  if(x > mapSize) { x = 0; y += s; t0 = 1;  t1 += c1; bt1 += bc1; bt0 = 1; wt1 += wc1; wt0 = 1; tt1 += tc1; tt0 = 1;}
+  t0 += c0; bt0 += bc0; wt0 += wc0; tt0 += tc0;}
+}

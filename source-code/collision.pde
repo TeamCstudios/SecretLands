@@ -24,30 +24,30 @@ void collision(){
     }
   }
   if(playerColor == 5 && tileValue == 16){
-    map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)] = 18;
-    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)] == 16){
-      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)] = 18;
+    map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 18;
+    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)][zpos] == 16){
+      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2) + 1] == 16){
-      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)+ 1] = 18;
+    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2) + 1][zpos] == 16){
+      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)+ 1][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2) + 1] == 16){
-      map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)+ 1] = 18;
+    if(map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2) + 1][zpos] == 16){
+      map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)+ 1][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)] == 16){
-      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)] = 18;
+    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)][zpos] == 16){
+      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2) - 1] == 16){
-      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)- 1] = 18;
+    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2) - 1][zpos] == 16){
+      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)- 1][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2) - 1] == 16){
-      map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)- 1] = 18;
+    if(map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2) - 1][zpos] == 16){
+      map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)- 1][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2) + 1] == 16){
-      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)+ 1] = 18;
+    if(map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2) + 1][zpos] == 16){
+      map[xpos + (width/xFOV/2) - 1][ypos + (height/xFOV/2)+ 1][zpos] = 18;
     }
-    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2) - 1] == 16){
-      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)- 1] = 18;
+    if(map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2) - 1][zpos] == 16){
+      map[xpos + (width/xFOV/2) + 1][ypos + (height/xFOV/2)- 1][zpos] = 18;
     }
   }
   drawTerrain();
@@ -98,6 +98,16 @@ void collision(){
   } else if(objectValue == 7){
     if(framecounter == 0 || framecounter == 3){
         health--;
+    }
+  } else if(objectValue == 11){
+    if(framecounter == 0){
+      if(zpos == 0){
+        zpos++;
+      }else{
+        zpos--;
+      }
+      xm += 3;
+      ym += 3;
     }
   }
   objectValue = 0;

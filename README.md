@@ -8,6 +8,14 @@ not reached yet!
 ### Alpha
 not reached yet!
 ### Omega
+#### v1.7.0
+- Add multi-layer support.
+- Add more music.
+- Add Cave layer 1.
+- Add Copper and Iron ore.
+- Add the gates.
+- Add Copper and Iron blocks.
+- Add world listings.
 #### v1.6.0
 - Add update checker.
 - Fix pseudo-freeze on world generation.
