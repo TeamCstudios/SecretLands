@@ -1,6 +1,8 @@
 void initialize(){
   xpos = mapSize / 2;
   ypos = mapSize / 2;
+  xm = 0;
+  ym = 0;
   zpos = 0;
   selection = 0;
   playerColor = 1;
@@ -22,6 +24,11 @@ void framecounter(){
     framecounter = 0;
     frameruleCounter++;
   }
+  if(frameruleCounter % 2 == 0 && framecounter == 0){
+    if(attack){
+      attack = false;
+    }
+  } 
   if(framecounter == 0){
     framerate = int((frameCount/* - frameStorage */) / ((millis()/* - 1000 * timeStorage */) / 1000));
   }

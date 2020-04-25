@@ -159,6 +159,13 @@ void drawTerrain(){
         }
       }
     }
+    if(attack){
+      if((i == (width/xFOV/2) - 1 && j == (height/xFOV/2)) || (i == (width/xFOV/2) && j == (height/xFOV/2) - 1) || (i == (width/xFOV/2) + 1 && j == (height/xFOV/2)) || (i == (width/xFOV/2) && j == (height/xFOV/2) + 1)){
+        if(framecounter % 2 == 0){
+          fill(255);
+        }
+      }
+    }
     if(i == (width/xFOV/2) && j == (height/xFOV/2)){
       tileValue = value;
       if(playerColor == 1){  

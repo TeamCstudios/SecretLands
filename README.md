@@ -8,6 +8,11 @@ not reached yet!
 ### Alpha
 not reached yet!
 ### Omega
+#### v1.8.0
+- Add the Mob system.
+- Add Slimes
+- Add cave demons.
+- Add attack, weapons, and weapon upgrades.
 #### v1.7.0
 - Add multi-layer support.
 - Add more music.

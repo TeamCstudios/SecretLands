@@ -2,8 +2,8 @@ import processing.net.*;
 import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
-int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; 
-final String verCode = "o170"; String worldName; String textEntry = ""; String test; boolean isLatestRelease;
+int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1;
+final String verCode = "o180"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -12,6 +12,7 @@ final boolean isOSX = false;
 void settings(){
   size(1000,700); 
 }
+
 void setup(){
   frameRate(60);
   background(105,55,155);
@@ -64,8 +65,9 @@ void draw(){
     text("Z: Change placing direction",600,440);
     text("X: Change selected block",600,450);
     text("Shift: Place block",600,460);
-    text("+: Screenshot",600,470);
-    text("]: Save",600,480);
+    text("Space: Attack",600,470);
+    text("+: Screenshot",600,480);
+    text("]: Save",600,490);
   }else if(scene == 1){
     background(100);
     fill(255);
@@ -93,10 +95,17 @@ void draw(){
       collision();
     }
     drawObjects();
+    checkDeath();
+    if(framecounter > 3 && framecounter % 2 == 0 && random(1) > .99){
+      spawnMob();
+    }
+    if(framecounter == 4){
+      moveMobs();
+    }
+    drawMobs();
     countdown();
     framecounter();
     drawHealth();
-    checkDeath();
     if(!(music1.isPlaying()) && !(music2.isPlaying()) && !(music3.isPlaying()) && zpos == 0){
       if(random(1) > .98){
         wandering();
@@ -157,7 +166,7 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.7.0 Omega",800,690);
+  text("The Secret Lands, Version 1.8.0 Omega",800,690);
   if(scene == 3){
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
@@ -191,20 +200,18 @@ void keyPressed(){
     if(keyCode == LEFT || key == 'a' || key == 'A'){
       xm -= cSpeed ;
     }  
+    if(key == ' '){
+      if(!attack){
+        attack = true;
+      }
+    }
     if(key == '[' || key == '{'){
       scene = 0;
       playerColor = 1;
     }
     if(key == 'i' || key == 'I'){
       scene = 4;
-    } 
-    if(key == 'l' || key == 'L'){
-      if(zpos == 0){
-        zpos++;
-      }else{
-        zpos--;
-      }
-    } 
+    }
     if(key == 'x' || key == 'X'){
       if(selection == 0){
         if(inventory[1] > 19){
@@ -464,8 +471,10 @@ void keyPressed(){
     }
   }else if (scene == 8){
     if(keyCode == SHIFT){
-      loadWorld();
+      loadWorldFull();
     } else if(keyCode == ALT){
+      textEntry = "";
+    } else if(key == '\n'){
       textEntry = "";
     } else {
       textEntry = textEntry + key;

@@ -170,6 +170,7 @@ void createObjects(){
       while(!(map[objectxpos[o]][objectypos[o]][0] == 6)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
+          loopEsc++;
           if(loopEsc > 1000){
             objectvalue[o] = 0;
             break;
@@ -180,6 +181,7 @@ void createObjects(){
       while(!(map[objectxpos[o]][objectypos[o]][1] == 6)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
+          loopEsc++;
           if(loopEsc > 1000){
             objectvalue[o] = 0;
             break;
@@ -190,6 +192,7 @@ void createObjects(){
       while(!(map[objectxpos[o]][objectypos[o]][1] == 7 && map[objectxpos[o]][objectypos[o]][0] == 6)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
+          loopEsc++;
           if(loopEsc > 1000){
             objectvalue[o] = 0;
             break;
@@ -204,6 +207,7 @@ void createObjects(){
         while(!(map[objectxpos[o]][objectypos[o]][1] == 7)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
+          loopEsc++;
           if(loopEsc > 1000){
             objectvalue[o] = 0;
             break;
@@ -220,6 +224,7 @@ void createObjects(){
         while(!(map[objectxpos[o]][objectypos[o]][1] == 6)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
+          loopEsc++;
           if(loopEsc > 1000){
             objectvalue[o] = 0;
             break;
