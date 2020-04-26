@@ -12,6 +12,7 @@ not reached yet!
 - Add the Sandstone Temple Walls.
 - Optimize mob despawning and world generation.
 - Add the Super form.
+- Rebalance form timers.
 ### Omega
 #### v1.8.0
 - Add the Mob system.
