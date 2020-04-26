@@ -6,7 +6,12 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
-not reached yet!
+#### v1.0.0
+- Add the Temple dungeon.
+- Add the Mummy boss fight and music for it.
+- Add the Sandstone Temple Walls.
+- Optimize mob despawning and world generation.
+- Add the Super form.
 ### Omega
 #### v1.8.0
 - Add the Mob system.

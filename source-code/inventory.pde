@@ -66,11 +66,11 @@ void inventory(){
     text("[Upgrade: 12 Iron]",305,540);
   }else if(attackPower == 7){
     text("Iron Sword",305,515);
-    //text("[Upgrade: 12 Iron]",305,540);
+    //text("[Upgrade: 14 Tin]",305,540);
   }
   textSize(16);
   ellipseMode(CORNER);
-  text("Normal Form: " + inventory [20],10,600);
+  text("Normal Form: " + inventory [20],10,580);
   fill(200,215,255);
   ellipse(10,610,50,50);
   fill(155);
@@ -80,7 +80,7 @@ void inventory(){
   ellipse(140,610,50,50);
   fill(155);
   text("Press [2]",140,675);
-  text("Climber Form: " + inventory [22],270,600);
+  text("Climber Form: " + inventory [22],270,580);
   fill(50,100,50);
   ellipse(270,610,50,50);
   fill(155);
@@ -90,11 +90,16 @@ void inventory(){
   ellipse(400,610,50,50);
   fill(155);
   text("Press [4]",400,675);
-  text("Iceman Form: " + inventory [24],530,600);
+  text("Iceman Form: " + inventory [24],530,580);
   fill(0,255,255);
   ellipse(530,610,50,50);
   fill(155);
   text("Press [5]",530,675);
+  text("Super Form: " + inventory [25],660,600);
+  fill(117,16,163);
+  ellipse(660,610,50,50);
+  fill(155);
+  text("Press [6]",660,675);
 }
 
 void mouseClicked(){

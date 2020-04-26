@@ -38,5 +38,8 @@ void halfheart(int x, int y){
 void checkDeath(){
   if(health < 1){
     scene = 5;
+    if(tState == 1){
+      tState = 0;
+    }
   }
 }

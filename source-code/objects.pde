@@ -1,4 +1,4 @@
-final int objCap = 2000;
+final int objCap = 2010;
 int[] objectxpos = new int[objCap];
 int[] objectypos = new int[objCap];
 int[] objectzpos = new int[objCap];
@@ -14,6 +14,8 @@ void drawObjects(){
             fill(50,50,200);
           } else if(objectvalue[o] == 2){
             fill(150,255,150);
+          } else if(objectvalue[o] == -1){
+            fill(117,16,163);
           } else if(objectvalue[o] == 3){
             fill(50,100,50);
           } else if(objectvalue[o] == 4){
@@ -35,7 +37,7 @@ void drawObjects(){
           } else {
             noFill();
           }
-          if(i == (width/xFOV/2) && j == (height/xFOV/2) && objectvalue[o] > 0){
+          if(i == (width/xFOV/2) && j == (height/xFOV/2) && objectvalue[o] != 0){
             objectValue = objectvalue[o];
             currentObjectID = o;
           } else {  
@@ -66,8 +68,21 @@ void drawObjects(){
 }
 
 void createObjects(){
-  for(int o = 0; o < objCap; o++){
-    int loopEsc = 0;
+  tX = int(random(mapSize - 100) + 100);
+  tY = int(random(mapSize - 50) + 25);
+  int loopEsc = 0;
+  while(!(map[tX][tY][0] == 8 || map[tX][tY][0] == 9)){
+    tX = int(random(mapSize - 100) + 100);
+    tY = int(random(mapSize - 50) + 25);
+    loopEsc++;
+    if(loopEsc > 100000){
+      break;
+    }
+  }
+  if(loopEsc < 100001){
+    generateTemple();
+  }
+  for(int o = 0; o < objCap - 10; o++){
     objectxpos[o] = int(random(mapSize - 50) + 25);
     objectypos[o] = int(random(mapSize - 50) + 25);
     loopEsc = 0;
@@ -189,7 +204,7 @@ void createObjects(){
       }
     }
     if(objectvalue[o] == 11){
-      while(!(map[objectxpos[o]][objectypos[o]][1] == 7 && map[objectxpos[o]][objectypos[o]][0] == 6)){
+      while(!(map[objectxpos[o]][objectypos[o]][1] == 7 && (map[objectxpos[o]][objectypos[o]][0] == 6 || map[objectxpos[o]][objectypos[o]][0] == 7))){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
           loopEsc++;
@@ -235,4 +250,52 @@ void createObjects(){
       objectzpos[o] = 1;
     }
   }
+}
+
+void generateTemple(){
+  for(int i = tX; i <= tX + 20; i++){for(int j = tY; j <= tY + 20; j++){
+    if(i == tX || j == tY || i == tX + 20 || j == tY + 20){
+      map[i][j][1] = -31;
+    }else{
+      map[i][j][1] = 11;
+    }
+  }}
+  map[tX - 1][tY - 1][1] = -31;
+  map[tX - 1][tY + 1][1] = -31;
+  map[tX - 1][tY][1] = -31;
+  map[tX][tY - 1][1] = -31;
+  map[tX + 1][tY - 1][1] = -31;
+  map[tX][tY][1] = 11;
+  map[tX + 1][tY][1] = 11;
+  map[tX][tY + 1][1] = 11;
+  map[tX + 1][tY + 1][1] = 11;
+  map[tX + 4][tY + 4][1] = -31;
+  map[tX + 5][tY + 4][1] = -31;
+  map[tX + 4][tY + 5][1] = -31;
+  map[tX + 5][tY + 5][1] = -31;
+  map[tX + 15][tY + 4][1] = -31;
+  map[tX + 16][tY + 4][1] = -31;
+  map[tX + 15][tY + 5][1] = -31;
+  map[tX + 16][tY + 5][1] = -31;
+  map[tX + 4][tY + 15][1] = -31;
+  map[tX + 5][tY + 15][1] = -31;
+  map[tX + 4][tY + 16][1] = -31;
+  map[tX + 5][tY + 16][1] = -31;
+  map[tX + 15][tY + 15][1] = -31;
+  map[tX + 16][tY + 15][1] = -31;
+  map[tX + 15][tY + 16][1] = -31;
+  map[tX + 16][tY + 16][1] = -31;
+  map[tX + 9][tY + 1][1] = -31;
+  map[tX + 11][tY + 1][1] = -31;
+  map[tX + 9][tY + 2][1] = -31;
+  map[tX + 11][tY + 2][1] = -31;
+  map[tX + 10][tY + 2][1] = -6;
+  objectxpos[objCap - 9] = tX + 1;
+  objectypos[objCap - 9] = tY + 1;
+  objectzpos[objCap - 9] = 1;
+  objectvalue[objCap - 9] = 12;
+  objectxpos[objCap - 8] = tX;
+  objectypos[objCap - 8] = tY;
+  objectzpos[objCap - 8] = 1;
+  objectvalue[objCap - 8] = 11;
 }

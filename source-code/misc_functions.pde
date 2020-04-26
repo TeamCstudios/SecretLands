@@ -4,6 +4,10 @@ void initialize(){
   xm = 0;
   ym = 0;
   zpos = 0;
+  tX = 0;
+  tY = 0;
+  tState = 0;
+  attackPower = 1;
   selection = 0;
   playerColor = 1;
   for(int i = 0; i < 30; i++){

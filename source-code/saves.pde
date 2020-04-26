@@ -21,7 +21,7 @@ void saveWorld(){
   }else{
     saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save1);  
   }
-  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 11];
+  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 14];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
       save2[i] = "" + objectxpos[i % objCap];
@@ -54,7 +54,10 @@ void saveWorld(){
       save2[objCap * 4 + mobCap * 5 + inventory.length + 7] = "" + playerColor;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 8] = "" + countdown;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 9] = "" + attackPower;
-      save2[objCap * 4  + mobCap * 5 + inventory.length + 10] = worldName;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 10] = "" + tX;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 11] = "" + tY;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 12] = "" + tState;
+      save2[objCap * 4  + mobCap * 5 + inventory.length + 13] = worldName;
     }
   }
   if(isOSX){
@@ -66,10 +69,12 @@ void saveWorld(){
 
 void loadWorldFull(){
   loadWorld();
-  saveWorld();
-  loadWorld();
-  scene = 3;
-  drawTerrain();
+  if(textEntry != ""){
+    saveWorld();
+    loadWorld();
+    scene = 3;
+    drawTerrain();
+  }
 }
 
 void loadWorld(){
@@ -126,7 +131,10 @@ void loadWorld(){
         playerColor = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 7]);
         countdown = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 8]);
         attackPower = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 9]);
-        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 10];
+        tX = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 10]);
+        tY = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
+        tState = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 12]);
+        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 13];
         i++;
       }
     }

@@ -2,8 +2,8 @@ import processing.net.*;
 import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
-int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1;
-final String verCode = "o180"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int tX; int tY; int tState;
+final String verCode = "a100"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -111,7 +111,7 @@ void draw(){
         wandering();
       }
     }
-    if(!(music4.isPlaying()) && zpos == 1){
+    if(!(music4.isPlaying()) && !(music5.isPlaying()) && zpos == 1){
       if(random(1) > .98){
         caves();
       }
@@ -166,7 +166,7 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.8.0 Omega",800,690);
+  text("The Secret Lands, Version 1.0.0 Alpha",800,690);
   if(scene == 3){
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
@@ -207,7 +207,6 @@ void keyPressed(){
     }
     if(key == '[' || key == '{'){
       scene = 0;
-      playerColor = 1;
     }
     if(key == 'i' || key == 'I'){
       scene = 4;
@@ -271,7 +270,7 @@ void keyPressed(){
       }
     }
     if(key == 'e' || key == 'E'){
-      if(tileSelectedValue < 0 && selection != 0){
+      if(tileSelectedValue > -30 && tileSelectedValue < 0 && selection != 0){
         map[selX][selY][zpos] = tileValue;
         inventory[-1 * tileSelectedValue] += 20;
       }else if(playerColor == 1 || playerColor == 4){
@@ -450,22 +449,29 @@ void keyPressed(){
     if(key == '4' || key == '$'){
       if(inventory[23] > 0){
         inventory[23]--;
-        countdown = 215;
+        countdown = 515;
         playerColor = 4;
       }
     }
     if(key == '5' || key == '%'){
       if(inventory[24] > 0){
         inventory[24]--;
-        countdown = 412;
+        countdown = 569;
         playerColor = 5;
+      }
+    }
+    if(key == '6' || key == '^'){
+      if(inventory[25] > 0){
+        inventory[25]--;
+        countdown = 433;
+        playerColor = 6;
       }
     }
     if(key == 'b' || key == 'B'){
       if(inventory[3] > 0){
         inventory[3]--;
-        if(health < 16){
-          health++;
+        if(health < 15){
+          health+= 2;
         }
       }
     }

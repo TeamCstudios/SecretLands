@@ -48,6 +48,7 @@ void drawTerrain(){
     else if(value == -2){fill(160);stroke(0);}
     else if(value == -5){fill(245,149,98);stroke(0);}
     else if(value == -6){fill(209,194,182);stroke(0);}
+    else if(value == -31){fill(117,96,28);stroke(0);}
     else if(value == 2){fill(60);}
     else if(value == 3){fill(70);}
     else if(value == 4){fill(80);}
@@ -208,8 +209,16 @@ void drawTerrain(){
         text(" I",i * xFOV,j * xFOV + xFOV * .85);
         textSize(36);
         cSpeed = 1;
+      } else if(playerColor == 6){  
+        fill(117,16,163);
+        rect(i * xFOV,j * xFOV,xFOV,xFOV);
+        textSize(10);
+        fill(66,8,92);
+        text("S",i * xFOV,j * xFOV + xFOV * .85);
+        textSize(36);
+        cSpeed = 2;
       }
-      if(countdown > 0 && countdown % 5 == 1 && ((countdown < 100 && (playerColor == 2 || playerColor == 3)) || (countdown < 55 && (playerColor == 4 || playerColor == 5)))){
+      if(countdown > 0 && countdown % 5 == 1 && ((countdown < 100 && (playerColor == 2 || playerColor == 3)) || (countdown < 55 && (playerColor == 4 || playerColor == 5 || playerColor == 6)))){
         fill(255,0,0);
         rect(i * xFOV,j * xFOV,xFOV,xFOV);
       }
