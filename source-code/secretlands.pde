@@ -2,8 +2,8 @@ import processing.net.*;
 import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
-int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int tX; int tY; int tState;
-final String verCode = "a100"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; int tX; int tY; int tState;
+final String verCode = "a110"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -19,8 +19,10 @@ void setup(){
   textSize(36);
   fill(0);
   text("Loading files from the cloud...",10,450);
+  downloadSchematics();
   loadMusic();
   versionz();
+  loadSettings();
 }
 
 void draw(){
@@ -36,6 +38,8 @@ void draw(){
     textSize(36);
     text("World Generation: <-" + preset + "->",20,300);
     text("Press SHIFT for New Game, Press CONTROL to continue.",20,660);
+    textSize(26);
+    text("[U] Volume: "+ int(100 * float(nf(soundVolume, 0, 1))) + "% [I]",500,590);
     textSize(16);
     if(isLatestRelease){
       text("You are on the latest version.",300,75);
@@ -78,6 +82,7 @@ void draw(){
     terrainGenSetup();
     terrainGenDraw();
     terrainGenDrawCaves();
+    terrainGenDrawCaves2();
     nameWorld();
     worldnames();
     createObjects();
@@ -106,6 +111,7 @@ void draw(){
     countdown();
     framecounter();
     drawHealth();
+    drawArmor();
     if(!(music1.isPlaying()) && !(music2.isPlaying()) && !(music3.isPlaying()) && zpos == 0){
       if(random(1) > .98){
         wandering();
@@ -114,6 +120,11 @@ void draw(){
     if(!(music4.isPlaying()) && !(music5.isPlaying()) && zpos == 1){
       if(random(1) > .98){
         caves();
+      }
+    }
+    if(!(music6.isPlaying()) && zpos == 2){
+      if(random(1) > .98){
+        caves2();
       }
     }
   }else if(scene == 4){
@@ -149,6 +160,9 @@ void draw(){
     String xcx = "[";
     for(int i = 0; i < xc.length; i++){
       xcx = xcx + xc[i] + ",";
+      if (i > 0 & i % 8 == 0){
+        xcx = xcx + "\n";
+      }
     }
     xcx = xcx + "]";
     text(xcx,10,20);
@@ -156,6 +170,7 @@ void draw(){
     text("Enter the name of your world, without the -" + verCode + " to load your save.",10,250);
     text("If you forgot the name of your world, look in /saves.",10,280);
     text("Press SHIFT to load world and ALT to clear selection.",10,470);
+    text("Press CONTROL to go back.",10,500);
     textSize(36);
     text(textEntry,100,370);
   }else if (scene == 10){
@@ -166,8 +181,8 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.0.0 Alpha",800,690);
-  if(scene == 3){
+  text("The Secret Lands, Version 1.1.0 Alpha",800,690);
+  if(scene == 3){  
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
       text("Placing: None",470,690);
@@ -179,6 +194,10 @@ void draw(){
       text("Placing: Copper",470,690);
     }else if(selection == 6){  
       text("Placing: Iron",470,690);
+    }else if(selection == 7){  
+      text("Placing: Tin",470,690);
+    }else if(selection == 7){  
+      text("Placing: Osmium",470,690);
     }
     textSize(25);
     text(framerate + "FPS",910,25);
@@ -207,6 +226,10 @@ void keyPressed(){
     }
     if(key == '[' || key == '{'){
       scene = 0;
+    }
+    if(key == 'l' || key == 'L'){
+      armorPower = 8;
+      attackPower = 9;
     }
     if(key == 'i' || key == 'I'){
       scene = 4;
@@ -237,6 +260,18 @@ void keyPressed(){
           selection = 0;
         }
       }else if(selection == 6){
+        if(inventory[7] > 19){
+          selection = 7;
+        }else{
+          selection = 0;
+        }
+      }else if(selection == 7){
+        if(inventory[8] > 19){
+          selection = 8;
+        }else{
+          selection = 0;
+        }
+      }else if(selection == 8){
         selection = 0;
       }
     }
@@ -323,6 +358,18 @@ void keyPressed(){
             objectypos[currentObjectID] = 0;
             objectvalue[currentObjectID] = 0;
           }
+          if(objectValue == 13){
+            inventory[7]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
+          if(objectValue == 14){
+            inventory[8]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
         }
       }
     }
@@ -346,6 +393,18 @@ void keyPressed(){
     }
     if(keyCode == CONTROL){
       scene = 8;
+    }
+    if(key == 'u' || key == 'U'){
+      if(soundVolume > 0){
+        soundVolume-= 0.1;
+        setSettings();
+      }
+    }
+    if(key == 'i' || key == 'I'){
+      if(soundVolume < 1){
+        soundVolume+= 0.1;
+        setSettings();
+      }
     }
   }else if(scene == 10){
     if(keyCode == DOWN){
@@ -480,6 +539,9 @@ void keyPressed(){
       loadWorldFull();
     } else if(keyCode == ALT){
       textEntry = "";
+    } else if(keyCode == CONTROL){
+      textEntry = "";
+      scene = 0;
     } else if(key == '\n'){
       textEntry = "";
     } else {

@@ -18,6 +18,10 @@ void inventory(){
   text("" + inventory[3],90,180);
   text("" + inventory[5],90,200);
   text("" + inventory[6],90,220);
+  text("Tin:",120,120);
+  text("Osmium:",120,140);
+  text("" + inventory[7],170,120);
+  text("" + inventory[8],180,140);
   text("Gel:",20,260);
   text("Green:",40,270);
   text("Blue:",40,285);
@@ -50,6 +54,7 @@ void inventory(){
   stroke(0);
   noFill();
   rectMode(CORNER);
+  rect(300,400,150,50);
   rect(300,500,150,50);
   noStroke();
   if(attackPower == 1){
@@ -66,7 +71,29 @@ void inventory(){
     text("[Upgrade: 12 Iron]",305,540);
   }else if(attackPower == 7){
     text("Iron Sword",305,515);
-    //text("[Upgrade: 14 Tin]",305,540);
+    text("[Upgrade: 5 Tin, 10 Copper]",305,530);
+  }else if(attackPower == 8){
+    text("Bronze Sword",305,515);
+    text("[Upgrade: 15 Iron,15 Coal]",305,540);
+  }else if(attackPower == 9){
+    text("Steel Sword",305,515);
+   // text("[Upgrade: 15 Iron,\n15 Coal]",305,540);
+  }
+  if(armorPower == 0){
+    text("No Armor",305,415);
+    text("[Upgrade: 50 Wood]",305,440);
+  }else if(armorPower == 2){
+    text("Thatched Armor",305,415);
+    text("[Upgrade: 20 Copper,5 Tin]",305,430);
+  }else if(armorPower == 4){
+    text("Bronze Armor",305,415);
+    text("[Upgrade: 20 Iron,25 Coal]",305,430);
+  }else if(armorPower == 6){
+    text("Steel Armor",305,415);
+    text("[Upgrade: 20 Osmium]",305,430);
+  }else if(armorPower == 8){
+    text("Iridosule Armor",305,415);
+    //text("[Upgrade: 20 Osmium]",305,430);
   }
   textSize(16);
   ellipseMode(CORNER);
@@ -123,6 +150,43 @@ void mouseClicked(){
       if(inventory[6] > 11){
         inventory[6]-=12;
         attackPower = 7;
+      }
+    }else if(attackPower == 7){
+      if(inventory[5] > 19 && inventory[7] > 4){
+        inventory[5]-=20;
+        inventory[7]-=5;
+        attackPower = 8;
+      }
+    }else if(attackPower == 8){
+      if(inventory[6] > 14 && inventory[3] > 14){
+        inventory[3]-=15;
+        inventory[6]-=15;
+        attackPower = 9;
+      }
+    }
+  }
+  if(scene == 4 && mouseX < 500 && mouseX > 300 && mouseY > 400 && mouseY < 450){
+    if(armorPower == 0){
+      if(inventory[1] > 49){
+        inventory[1]-=50;
+        armorPower = 2;
+      }
+    }else if(armorPower == 2){
+      if(inventory[5] > 19 && inventory[7] > 4){
+        inventory[5]-=20;
+        inventory[7]-=5;
+        armorPower = 4;
+      }
+    }else if(armorPower == 4){
+      if(inventory[6] > 19 && inventory[3] > 24){
+        inventory[6]-=20;
+        inventory[3]-=25;
+        armorPower = 6;
+      }
+    }else if(armorPower == 6){
+      if(inventory[7] > 19){
+        inventory[7]-=20;
+        armorPower = 8;
       }
     }
   }

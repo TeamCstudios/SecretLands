@@ -10,18 +10,29 @@ void saveWorld(){
   }else{
     saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-0.slsav", save);  
   }
-  String[] save1 = new String[mapSize * 1000];
-  for(int i = 0; i < save1.length / 1000; i++){
+  save = new String[mapSize * 1000];
+  for(int i = 0; i < save.length / 1000; i++){
     for(int j = 0; j < 1000; j++){
-      save1[i * 1000 + j] = "" + map[i][j][1];
+      save[i * 1000 + j] = "" + map[i][j][1];
     }
   }
   if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save1);
+    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);
   }else{
-    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save1);  
+    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);  
   }
-  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 14];
+  save = new String[mapSize * 1000];
+  for(int i = 0; i < save.length / 1000; i++){
+    for(int j = 0; j < 1000; j++){
+      save[i * 1000 + j] = "" + map[i][j][2];
+    }
+  }
+  if(isOSX){
+    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);
+  }else{
+    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);  
+  }
+  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 16];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
       save2[i] = "" + objectxpos[i % objCap];
@@ -54,10 +65,12 @@ void saveWorld(){
       save2[objCap * 4 + mobCap * 5 + inventory.length + 7] = "" + playerColor;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 8] = "" + countdown;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 9] = "" + attackPower;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 10] = "" + tX;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 11] = "" + tY;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 12] = "" + tState;
-      save2[objCap * 4  + mobCap * 5 + inventory.length + 13] = worldName;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 10] = "" + armor;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 11] = "" + armorPower;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 12] = "" + tX;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 13] = "" + tY;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 14] = "" + tState;
+      save2[objCap * 4  + mobCap * 5 + inventory.length + 15] = worldName;
     }
   }
   if(isOSX){
@@ -80,14 +93,17 @@ void loadWorldFull(){
 void loadWorld(){
   String[] worldsave;
   String[] worldsave1;
+  String[] worldsave2;
   String[] datasave;
   if(isOSX){
     worldsave = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
     worldsave1 = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
+    worldsave2 = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
     datasave = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
   }else{
     worldsave = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
     worldsave1 = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
+    worldsave2 = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
     datasave = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
   }
   if(worldsave == null || datasave == null){
@@ -101,6 +117,11 @@ void loadWorld(){
     for(int i = 0; i < worldsave1.length / 1000; i++){
       for(int j = 0; j < 1000; j++){
         map[j][i][1] = int(worldsave1[j + i * 1000]);
+      }
+    }
+    for(int i = 0; i < worldsave2.length / 1000; i++){
+      for(int j = 0; j < 1000; j++){
+        map[j][i][2] = int(worldsave2[j + i * 1000]);
       }
     }
     for(int i = 0; i < datasave.length - 8; i++){
@@ -118,9 +139,13 @@ void loadWorld(){
         mobypos[i % mobCap] = int(datasave[i]);
       } else if(i < objCap * 4 + mobCap * 3){
         mobzpos[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + inventory.length){
+      } else if(i < objCap * 4 + mobCap * 4){
+        mobvalue[i % mobCap] = int(datasave[i]);
+      } else if(i < objCap * 4 + mobCap * 5){
+        mobhealth[i % mobCap] = int(datasave[i]);
+      } else if(i < objCap * 4 + mobCap * 5 + inventory.length){
         inventory[i - objCap * 4] = int(datasave[i]);
-      }else{
+      } else{
         xpos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length]);
         ypos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 1]);
         zpos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 2]);
@@ -131,10 +156,12 @@ void loadWorld(){
         playerColor = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 7]);
         countdown = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 8]);
         attackPower = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 9]);
-        tX = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 10]);
-        tY = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
-        tState = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 12]);
-        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 13];
+        armor = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 10]);
+        armorPower = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
+        tX = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
+        tY = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 12]);
+        tState = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 14]);
+        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 15];
         i++;
       }
     }

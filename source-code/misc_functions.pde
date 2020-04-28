@@ -8,6 +8,8 @@ void initialize(){
   tY = 0;
   tState = 0;
   attackPower = 1;
+  armor = 0;
+  armorPower = 0;
   selection = 0;
   playerColor = 1;
   for(int i = 0; i < 30; i++){
@@ -18,10 +20,10 @@ void initialize(){
 }
 
 void framecounter(){
-  if(millis() % 1000 == 0){
+  //if(millis() % 1000 == 0){
     //timeStorage++;
     //frameStorage = frameCount;
-  }
+  //}
   if(framecounter < 5){
     framecounter++;
   }else if(framecounter == 5){
@@ -32,7 +34,12 @@ void framecounter(){
     if(attack){
       attack = false;
     }
-  } 
+  }
+  if(frameruleCounter % 13 == 0 && framecounter == 1){
+    if(armor < armorPower){
+      armor++;
+    }
+  }
   if(framecounter == 0){
     framerate = int((frameCount/* - frameStorage */) / ((millis()/* - 1000 * timeStorage */) / 1000));
   }
@@ -68,6 +75,35 @@ void worldnames(){
   }
 }
 
+void loadSettings(){
+  String[] settings;
+  if(isOSX){
+    settings = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat");
+  }else{
+    settings = loadStrings("profile/settings.sldat");
+  }
+  if(settings == null){
+    String[] newU = new String[1];
+    newU[newU.length - 1] = nf(soundVolume, 0, 1);
+    if(isOSX){
+      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat",newU);
+    }else{
+      saveStrings("profile/settings.sldat",newU);
+    }
+  }else{
+    soundVolume = int(settings[0]);
+  }
+}
+
+void setSettings(){
+  String[] newU = new String[1];
+  newU[0] = nf(soundVolume, 0, 1);
+  if(isOSX){
+    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat",newU);
+  }else{
+    saveStrings("profile/settings.sldat",newU);
+  }
+}
 void versionz(){
   String[] updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/updates.sldat");
   String latestUpdateCode = "";

@@ -6,6 +6,25 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.1.0
+Miscellaneous / Fundamentals
+- Add cave layer 2.
+- Dedicate more RAM, so hopefully soon we can have maps bigger than 1k by 1k.
+- Add Armor!!!
+Blocks / Items
+- Add Tin and Osmium Ore.
+- Add Tin and Osmium Blocks.
+Weapons & Armor
+- Add Thistle Armor, Bronze Armor, Steel Armor, Iridosule Armor
+- Add Bronze Sword, Steel Sword
+Structures
+- Add schematics.
+- Add Lowering Dungeons.
+- Removed the Omega House structure.
+- Add the Grotto and Ocean Ruin structures.
+Music
+- Add Yet Darker
+- Add sound volume settings.
 #### v1.0.0
 - Add the Temple dungeon.
 - Add the Mummy boss fight and music for it.

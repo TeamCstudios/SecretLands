@@ -82,12 +82,12 @@ void collision(){
     xpos = lastxpos;
     ypos = lastypos;
     if(tileValue == 1){
-      health--;
+      doDamage();
     }
     drawTerrain();
     if((playerColor == 1 || playerColor == 4) && (tileValue <= 6 || (tileValue >= 16 && tileValue < 18)) || (playerColor == 2 || playerColor == 5) && (tileValue <= 6 || tileValue == 17) || playerColor == 6 && (tileValue < 0) || playerColor == 3 && (tileValue < 2 || (tileValue >= 16 && tileValue < 18))){
       if(framecounter == 0 && frameruleCounter % 2 == 0){
-        health--;
+        doDamage();
       }  
     }
     
@@ -130,7 +130,7 @@ void collision(){
   } else if(objectValue == 7){
     if(framecounter == 0 || framecounter == 3){
       if(playerColor != 6){
-        health--;
+        doDamage();
       }else{
         objectxpos[currentObjectID] = 0;
         objectypos[currentObjectID] = 0;
@@ -139,10 +139,18 @@ void collision(){
     }
   } else if(objectValue == 11){
     if(framecounter == 0){
-      if(zpos == 0){
-        zpos++;
-      }else{
-        zpos--;
+      if(objectzpos[currentObjectID] <= 1){
+        if(zpos == 0){
+          zpos++;
+        }else{
+          zpos--;
+        }
+      }else if(objectzpos[currentObjectID] == 2){
+        if(zpos == 1){
+          zpos++;
+        }else{
+          zpos--;
+        }
       }
       xm += 3;
       ym += 3;

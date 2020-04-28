@@ -76,7 +76,7 @@ void drawMobs(){
           if(i == (width/xFOV/2) && j == (height/xFOV/2) && mobvalue[o] > 0){
             if(framecounter % 2 == 0){
               if(playerColor != 6){
-                health--;
+                doDamage();
                 xm += (-1 * i % 2) * 3;
                 ym += (-1 * j % 2) * 3;
               }else{
@@ -316,6 +316,23 @@ void spawnMob(){
       mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
       if(mobvalue[o] == 5){
       mobhealth[o] = 30;
+        while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 0){
+          mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
+          mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
+          loopEsc++;
+          if(loopEsc > 1000){
+            mobvalue[o] = 0;
+            break;
+          }
+        }
+      }
+    }else if(mobvalue[o] == 0 && zpos == 2){
+      mobvalue[o] = 5;
+      test = true;
+      mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
+      mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
+      if(mobvalue[o] == 5){
+      mobhealth[o] = 70;
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 0){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);

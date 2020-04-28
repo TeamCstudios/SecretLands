@@ -1,4 +1,5 @@
-SoundFile music1; SoundFile music2; SoundFile music3; SoundFile music4; SoundFile music5; 
+float soundVolume = 1.0; Sound sound = new Sound(this);
+SoundFile music1; SoundFile music2; SoundFile music3; SoundFile music4; SoundFile music5; SoundFile music6; 
 void stopmusic(){
   if(music1 != null){
     music1.stop();
@@ -6,47 +7,43 @@ void stopmusic(){
     music3.stop();
     music4.stop();
     music5.stop();
+    music6.stop();
   }
 }
 
 void wandering(){
   float rand = random(1);
   if(rand > .65){
-    music1.stop();
-    music3.stop();
-    music4.stop();
-    music5.stop();
+    stopmusic();
     music2.play();
+    sound.volume(abs(soundVolume));
   }else if(rand > .30){
-    music1.stop();
-    music2.stop();
-    music4.stop();
-    music5.stop();
+    stopmusic();
     music3.play();
+    sound.volume(abs(soundVolume));
   }else{
-    music3.stop();
-    music2.stop();
-    music4.stop();
-    music5.stop();
+    stopmusic();
     music1.play();
+    sound.volume(abs(soundVolume));
   }
 }
 
 void caves(){
-  music1.stop();
-  music2.stop();
-  music3.stop();
-  music5.stop();
+  stopmusic();
   music4.play();
+  sound.volume(abs(soundVolume));
+}
+
+void caves2(){
+  stopmusic();
+  music6.play();
+  sound.volume(abs(soundVolume));
 }
 
 void whyDoIHearBossMusic(){
-  music1.stop();
-  music2.stop();
-  music3.stop();
-  music4.stop();
-  music5.stop();
+  stopmusic();
   music5.play();
+  sound.volume(abs(soundVolume));
 }
 
 void loadMusic(){
@@ -148,6 +145,26 @@ void loadMusic(){
         music5 = new SoundFile(this,"/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "music/MrJoCrafter - A Real Threat.mp3");
       }else{
         music5 = new SoundFile(this,"music/MrJoCrafter - A Real Threat.mp3");
+    }
+  }
+  
+  if(isOSX){
+      music6 = new SoundFile(this,"/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "music/MrJoCrafter - A Real Threat.mp3");
+    }else{
+      music6 = new SoundFile(this,"music/MrJoCrafter - A Real Threat.mp3");
+  }
+  if(music6 != null){
+    byte b[];
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20Yet%20Deeper.mp3");
+    if(isOSX){
+      saveBytes("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "music/MrJoCrafter - Yet Deeper.mp3", b);
+    }else{
+      saveBytes("music/MrJoCrafter - Yet Deeper.mp3", b);
+    }
+    if(isOSX){
+        music6 = new SoundFile(this,"/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "music/MrJoCrafter - Yet Deeper.mp3");
+      }else{
+        music6 = new SoundFile(this,"music/MrJoCrafter - Yet Deeper.mp3");
     }
   }
 }
