@@ -6,6 +6,17 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.2.0
+##### Internal:
+- Perform a massive optimization to de-spaghettify the code.
+##### Tuning:
+- mixing on "Temple" fixed so it isn't AS loud
+- schematics no longer download EVERY SINGLE time you start the game.
+- fixed #6 - movement is now less stiff
+- the colors of Osmium and Tin have been changed so they pop out more against the caves
+##### Bugfixes:
+- fixed bug where you can't heal half-hearts
+- fixed issue #7 - worlds that were never saved will no longer appear in the saves list.
 #### v1.1.0
 ##### Miscellaneous / Fundamentals
 - Add cave layer 2.
