@@ -5,33 +5,21 @@ void saveWorld(){
       save[i * 1000 + j] = "" + map[i][j][0];
     }
   }
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-0.slsav", save);
-  }else{
-    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-0.slsav", save);  
-  }
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-0.slsav", save);
   save = new String[mapSize * 1000];
   for(int i = 0; i < save.length / 1000; i++){
     for(int j = 0; j < 1000; j++){
       save[i * 1000 + j] = "" + map[i][j][1];
     }
   }
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);
-  }else{
-    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);  
-  }
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);
   save = new String[mapSize * 1000];
   for(int i = 0; i < save.length / 1000; i++){
     for(int j = 0; j < 1000; j++){
       save[i * 1000 + j] = "" + map[i][j][2];
     }
   }
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);
-  }else{
-    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);  
-  }
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);
   String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 16];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
@@ -73,11 +61,7 @@ void saveWorld(){
       save2[objCap * 4  + mobCap * 5 + inventory.length + 15] = worldName;
     }
   }
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".sldat", save2);
-  }else{  
-    saveStrings("saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".sldat", save2);
-  }
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".sldat", save2);
 }
 
 void loadWorldFull(){
@@ -95,17 +79,10 @@ void loadWorld(){
   String[] worldsave1;
   String[] worldsave2;
   String[] datasave;
-  if(isOSX){
-    worldsave = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
-    worldsave1 = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
-    worldsave2 = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
-    datasave = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
-  }else{
-    worldsave = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
-    worldsave1 = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
-    worldsave2 = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
-    datasave = loadStrings("saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
-  }
+  worldsave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
+  worldsave1 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
+  worldsave2 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
+  datasave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
   if(worldsave == null || datasave == null){
     textEntry = "";
   }else{

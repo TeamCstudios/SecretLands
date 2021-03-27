@@ -48,48 +48,28 @@ void framecounter(){
 void worldnames(){
   String[] updates;
   String lol = worldName;
-  if(isOSX){
-    updates = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat");
-  }else{
-    updates = loadStrings("profile/worldnames.sldat");
-  }
+  updates = loadStrings(filePath() + "profile/worldnames.sldat");
   if(updates == null){
     String[] newU = new String[1];
     newU[newU.length - 1] = lol;
-    if(isOSX){
-      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat",newU);
-    }else{
-      saveStrings("profile/worldnames.sldat",newU);
-    }
+    saveStrings(filePath() + "profile/worldnames.sldat",newU);
   }else{
     String[] newU = new String[updates.length + 1];
     for(int i = 0; i < newU.length - 1; i++){
       newU[i] = updates[i];
     }
     newU[newU.length - 1] = lol;
-    if(isOSX){
-      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat",newU);
-    }else{
-      saveStrings("profile/worldnames.sldat",newU);
-    }
+    saveStrings(filePath() + "profile/worldnames.sldat",newU);
   }
 }
 
 void loadSettings(){
   String[] settings;
-  if(isOSX){
-    settings = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat");
-  }else{
-    settings = loadStrings("profile/settings.sldat");
-  }
+  settings = loadStrings(filePath() + "profile/settings.sldat");
   if(settings == null){
     String[] newU = new String[1];
     newU[newU.length - 1] = nf(soundVolume, 0, 1);
-    if(isOSX){
-      saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat",newU);
-    }else{
-      saveStrings("profile/settings.sldat",newU);
-    }
+    saveStrings(filePath() + "profile/settings.sldat",newU);
   }else{
     soundVolume = int(settings[0]);
   }
@@ -98,10 +78,14 @@ void loadSettings(){
 void setSettings(){
   String[] newU = new String[1];
   newU[0] = nf(soundVolume, 0, 1);
+  saveStrings(filePath() + "profile/settings.sldat",newU);
+}
+
+String filePath(){
   if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/settings.sldat",newU);
+    return "/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/";
   }else{
-    saveStrings("profile/settings.sldat",newU);
+    return "";
   }
 }
 void versionz(){

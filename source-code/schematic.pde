@@ -1,10 +1,6 @@
 void loadSchematic(String schematicName, int sX, int sY, int sZ){
   String[] schematic;
-  if(isOSX){
-    schematic = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/" + schematicName + ".slschem");
-  }else{
-    schematic = loadStrings("schematics/" + schematicName + ".slschem");
-  }
+  schematic = loadStrings(filePath() + "schematics/" + schematicName + ".slschem");
   int schWid = int(schematic[0]);
   int schLen = int(schematic[1]);
   for(int i = 0; i < schWid; i++){
@@ -15,34 +11,31 @@ void loadSchematic(String schematicName, int sX, int sY, int sZ){
 }
 
 void downloadSchematics(){
-  String[] updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/temple.slschem");
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/temple.slschem",updates);
-  }else{
-    saveStrings("schematics/temple.slschem",updates);
+  String[] updates;
+  String[] c;
+  c = loadStrings(filePath() + "schematics/temple.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/temple.slschem");
+    saveStrings(filePath() + "schematics/temple.slschem",updates);
   }
-  updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/lowering.slschem");
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/lowering.slschem",updates);
-  }else{
-    saveStrings("schematics/lowering.slschem",updates);
+  c = loadStrings(filePath() + "schematics/lowering.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/lowering.slschem");
+    saveStrings(filePath() + "schematics/lowering.slschem",updates);
   }
-  updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/oceanruin1.slschem");
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/oceanruin1.slschem",updates);
-  }else{
-    saveStrings("schematics/oceanruin1.slschem",updates);
+  c = loadStrings(filePath() + "schematics/oceanruin1.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/oceanruin1.slschem");
+    saveStrings(filePath() + "schematics/oceanruin1.slschem",updates);
   }
-  updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/oceanruin2.slschem");
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/oceanruin2.slschem",updates);
-  }else{
-    saveStrings("schematics/oceanruin2.slschem",updates);
+  c = loadStrings(filePath() + "schematics/oceanruin2.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/oceanruin2.slschem");
+    saveStrings(filePath() + "schematics/oceanruin2.slschem",updates);
   }
-  updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/grotto.slschem");
-  if(isOSX){
-    saveStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "schematics/grotto.slschem",updates);
-  }else{
-    saveStrings("schematics/grotto.slschem",updates);
+  c = loadStrings(filePath() + "schematics/grotto.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/grotto.slschem");
+    saveStrings(filePath() + "schematics/grotto.slschem",updates);
   }
 }

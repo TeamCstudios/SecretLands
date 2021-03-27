@@ -35,9 +35,9 @@ void drawObjects(){
           } else if(objectvalue[o] == 11){
             fill(60);
           } else if(objectvalue[o] == 13){
-            fill(111,125,113);
+            fill(155,185,145);
           } else if(objectvalue[o] == 14){
-            fill(84,109,133);
+            fill(58,80,120);
           } else {
             noFill();
           }

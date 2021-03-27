@@ -42,9 +42,5 @@ void takeScreenshot(){
     }}
   }}
   img.updatePixels();
-  if(isOSX){
-    img.save("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "screenshots/screenshot-" + (frameruleCounter * 5 + framecounter * (preset + 4) * 17) + ".png");
-  }else{
-    img.save("screenshots/screenshot-" + (frameruleCounter * 5 + framecounter * (preset + 4) * 17) + ".png");
-  }
+  img.save(filePath() + "screenshots/screenshot-" + (frameruleCounter * 5 + framecounter * (preset + 4) * 17) + ".png");
 }

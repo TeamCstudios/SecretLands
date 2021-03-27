@@ -3,7 +3,8 @@ import processing.sound.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
 int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; int tX; int tY; int tState;
-final String verCode = "a110"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+final String verCode = "a120"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int inputEntryHorz = 0; int inputEntryVert = 0;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -152,16 +153,16 @@ void draw(){
     background(100);
     textSize(13);
     String[] xc;
-    if(isOSX){
-      xc = loadStrings("/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/" + "profile/worldnames.sldat");
-    }else{
-      xc = loadStrings("profile/worldnames.sldat");
-    }
+    xc = loadStrings(filePath() + "profile/worldnames.sldat");
     String xcx = "[";
     for(int i = 0; i < xc.length; i++){
-      xcx = xcx + xc[i] + ",";
-      if (i > 0 & i % 8 == 0){
-        xcx = xcx + "\n";
+      String z[];
+      z = loadStrings(filePath() + "saves/" + xc[i] + "-" + verCode + "/" + xc[i] + "-" + verCode + ".sldat");
+      if(z != null){
+        xcx = xcx + xc[i] + ",";
+        if (i > 0 & i % 8 == 0){
+          xcx = xcx + "\n";
+        }
       }
     }
     xcx = xcx + "]";
@@ -181,7 +182,7 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.1.0 Alpha",800,690);
+  text("The Secret Lands, Version 1.2.0 Alpha",800,690);
   if(scene == 3){  
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
@@ -208,17 +209,17 @@ void draw(){
 void keyPressed(){
   if(scene == 3){
     if(keyCode == UP || key == 'w' || key == 'W'){
-      ym -= cSpeed;
+      inputEntryVert = -5;
     } 
     if(keyCode == DOWN || key == 's' || key == 'S'){
-      ym += cSpeed;
+      inputEntryVert = 5;
     } 
     if(keyCode == RIGHT || key == 'd' || key == 'D'){
-      xm += cSpeed;
+      inputEntryHorz = 5;
     } 
     if(keyCode == LEFT || key == 'a' || key == 'A'){
-      xm -= cSpeed ;
-    }  
+      inputEntryHorz = -5;
+    } 
     if(key == ' '){
       if(!attack){
         attack = true;
@@ -531,6 +532,8 @@ void keyPressed(){
         inventory[3]--;
         if(health < 15){
           health+= 2;
+        }else if(health == 15){
+          health = 16;
         }
       }
     }

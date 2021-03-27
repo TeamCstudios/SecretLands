@@ -1,4 +1,51 @@
 void collision(){
+  
+  if(inputEntryVert < -2 && inputEntryHorz > 2){
+    xm += cSpeed;
+    ym -= cSpeed;
+    inputEntryVert++;
+    inputEntryHorz--;
+  }else if(inputEntryVert > 2 && inputEntryHorz > 2){
+    xm += cSpeed;
+    ym += cSpeed;
+    inputEntryVert--;
+    inputEntryHorz--;
+  }else if(inputEntryVert < -2 && inputEntryHorz < -2){
+    xm -= cSpeed;
+    ym -= cSpeed;
+    inputEntryVert++;
+    inputEntryHorz++;
+  }else if(inputEntryVert > 2 && inputEntryHorz < -2){
+    xm -= cSpeed;
+    ym += cSpeed;
+    inputEntryVert--;
+    inputEntryHorz++;
+  }else{
+    if(inputEntryVert < -4){
+      ym -= cSpeed;
+      inputEntryVert++;
+    }else if(inputEntryVert < 0){
+      inputEntryVert++;
+    } 
+    if(inputEntryVert > 4){
+      ym += cSpeed;
+      inputEntryVert--;
+    }else if(inputEntryVert > 0){
+      inputEntryVert--;
+    } 
+    if(inputEntryHorz > 4){
+      xm += cSpeed;
+      inputEntryHorz--;
+    }else if(inputEntryHorz > 0){
+      inputEntryHorz--;
+    }
+    if(inputEntryHorz < -4){
+      xm -= cSpeed;
+      inputEntryHorz++;
+    }else if(inputEntryHorz < 0){
+      inputEntryHorz++;
+    }
+  }
   lastxpos = xpos;
   lastypos = ypos;
   if(xm > 0){
