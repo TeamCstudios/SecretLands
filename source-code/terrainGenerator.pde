@@ -1,19 +1,3 @@
-/*
-            Terrain Generator
-    Created by Yoctobyte and MrJoCrafter
-
-                  Presets
-0: Normal
-1: Southwestern Europe
-2: Hyrule
-3: Middle East
-4: Indonesia
-5: Desert Archipelago
-6: Winter Wonderland
-7: China
-8: Random
-*/
-
 final int xFOV = 10;
 int preset = 0;
 float s = 1;

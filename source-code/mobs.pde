@@ -77,8 +77,19 @@ void drawMobs(){
             if(framecounter % 2 == 0){
               if(playerColor != 6){
                 doDamage();
-                xm += (-1 * i % 2) * 3;
-                ym += (-1 * j % 2) * 3;
+                if(random(1) > .5){
+                  if(random(1) > .5){
+                    mobxpos[o]++;
+                  }else{
+                    mobypos[o]++;
+                  }
+                }else{
+                  if(random(1) > .5){
+                    mobxpos[o]--;
+                  }else{
+                    mobypos[o]--;
+                  }
+                }
               }else{
                 mobhealth[o]--;
               }

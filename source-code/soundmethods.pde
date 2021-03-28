@@ -47,45 +47,65 @@ void whyDoIHearBossMusic(){
 }
 
 void loadMusic(){
-  music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering A.mp3");
+  lm1();
+  lm2();
+  lm3();
+  lm4();
+  lm5();
+  lm6();
+}
+
+
+void lm1(){
+  music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering.mp3");
   if(music1 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20Wandering%20A.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Wandering A.mp3", b);
-    music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering A.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/wandering.mp3");
+    saveBytes(filePath() + "music/MrJoCrafter - Wandering.mp3", b);
+    music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering.mp3");
   }
-  music2 = new SoundFile(this,filePath() + "music/Takijana - Wandering B.mp3");
+}
+void lm2(){
+  music2 = new SoundFile(this,filePath() + "music/Takijana - Flutter.mp3");
   if(music2 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/Takijana%20-%20Wandering%20B.mp3");
-    saveBytes(filePath() + "music/Takijana - Wandering B.mp3", b);
-    music2 = new SoundFile(this,filePath() + "music/Takijana - Wandering B.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/flutter.mp3");
+    saveBytes(filePath() + "music/Takijana - Flutter.mp3", b);
+    music2 = new SoundFile(this,filePath() + "music/Takijana - Flutter.mp3");
   }
-  music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering C.mp3");
+}
+void lm3(){
+  music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Insane Slimes.mp3");
   if(music3 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20Wandering%20C.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Wandering C.mp3", b);
-    music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering C.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/insaneslimes.mp3");
+    saveBytes(filePath() + "music/MrJoCrafter - Insane Slimes.mp3", b);
+    music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Insane Slimes.mp3");
   }
+}
+void lm4(){
   music4 = new SoundFile(this,filePath() + "music/Takijana - Temple.mp3");
   if(music4 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/Takijana%20-%20Temple.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/temple.mp3");
     saveBytes(filePath() + "music/Takijana - Temple.mp3", b);
     music4 = new SoundFile(this,filePath() + "music/Takijana - Temple.mp3");
   }
+}
+void lm5(){
   music5 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
   if(music5 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20A%20Real%20Threat.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/arealthreat.mp3");
     saveBytes(filePath() + "music/MrJoCrafter - A Real Threat.mp3", b);
     music5 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
   }
+}
+void lm6(){
   music6 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
   if(music6 != null){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music/MrJoCrafter%20-%20Yet%20Deeper.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/yetdeeper.mp3");
     saveBytes(filePath() + "music/MrJoCrafter - Yet Deeper.mp3", b);
     music6 = new SoundFile(this,filePath() + "music/MrJoCrafter - Yet Deeper.mp3");
   }

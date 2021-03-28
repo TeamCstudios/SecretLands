@@ -6,6 +6,13 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.2.1
+#### Tuning:
+- fix RAM dedication to allow the game to actually start up
+#### Music:
+- rename Wandering A, B, and C to Wandering, Flutter, and Insane Slimes respectively
+#### Tweaking:
+- fix combat so you can't just get knocked into a wall and immediately die
 #### v1.2.0
 ##### Internal:
 - Perform a massive optimization to de-spaghettify the code.
