@@ -1,5 +1,5 @@
 float soundVolume = 1.0; Sound sound = new Sound(this);
-SoundFile music1; SoundFile music2; SoundFile music3; SoundFile music4; SoundFile music5; SoundFile music6; 
+SoundFile music1; SoundFile music2; SoundFile music3; SoundFile music4; SoundFile music5; SoundFile music6; SoundFile music7; 
 void stopmusic(){
   if(music1 != null){
     music1.stop();
@@ -8,6 +8,7 @@ void stopmusic(){
     music4.stop();
     music5.stop();
     music6.stop();
+    music7.stop();
   }
 }
 
@@ -40,21 +41,40 @@ void caves2(){
   sound.volume(abs(soundVolume));
 }
 
+void caves3(){
+  stopmusic();
+  music7.play();
+  sound.volume(abs(soundVolume));
+}
+
 void whyDoIHearBossMusic(){
   stopmusic();
   music5.play();
   sound.volume(abs(soundVolume));
 }
 
-void loadMusic(){
-  lm1();
-  lm2();
-  lm3();
-  lm4();
-  lm5();
-  lm6();
+void doPlayMusic(){
+  if(!(music1.isPlaying()) && !(music2.isPlaying()) && !(music3.isPlaying()) && zpos == 0){
+      if(random(1) > .98){
+        wandering();
+      }
+    }
+    if(!(music4.isPlaying()) && !(music5.isPlaying()) && zpos == 1){
+      if(random(1) > .98){
+        caves();
+      }
+    }
+    if(!(music6.isPlaying()) && zpos == 2){
+      if(random(1) > .98){
+        caves2();
+      }
+    }
+    if(!(music7.isPlaying()) && zpos == 3){
+      if(random(1) > .98){
+        caves3();
+      }
+    }
 }
-
 
 void lm1(){
   music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering.mp3");
@@ -108,5 +128,14 @@ void lm6(){
     b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/yetdeeper.mp3");
     saveBytes(filePath() + "music/MrJoCrafter - Yet Deeper.mp3", b);
     music6 = new SoundFile(this,filePath() + "music/MrJoCrafter - Yet Deeper.mp3");
+  }
+}
+void lm7(){
+  music7 = new SoundFile(this,filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3");
+  if(music7 != null){
+    byte b[];
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/icewatersrefrain.mp3");
+    saveBytes(filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3", b);
+    music7 = new SoundFile(this,filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3");
   }
 }

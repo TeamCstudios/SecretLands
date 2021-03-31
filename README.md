@@ -6,12 +6,41 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.3.0
+##### Music:
+- Retuned the music downloading system.
+- Added "Ice Water's Refrain" as a placeholder song
+##### Tuning:
+- Yoctobyte-ify (make more compact with less spacing) some of my code
+- the loading screen was tweaked and now actually has a loading bar!
+- Dedicate 0.5 more GB of RAM.
+##### Crafting, Weapons, Armor:
+- You can now craft all of the powerups! Gel is finally useful!
+- Added Greensteel Sword (add uranium to steel)
+- Fixed text leaving box in armor/weapon crafting displays by extending the box so the text fits in it
+##### Bugfixing:
+- Fixed bug where placing Osmium would still display as "Placing: Tin"
+- Fixed bug where placing Tin or Osmium would not display the half-tangible block properly.
+- Fixed ArrayOutOfBoundsException when loading saves in some instances
+- Super Form now actually has a description.
+##### World Generation:
+- A third layer of cave generation.
+##### Controls:
+- Selecting what to place is now not frustrating (i.e. you can now place Tin if you have no Stone, or Osmium if you have no wood)
+##### Structures:
+- Lowering Dungeon 2 (to go down to the third cave layer)
+- Castle and Ruined Castle overworld structures!
+##### Uranium:
+- Added Uranium Ore, Uranium Item, and Uranium Blocks
+- Uranium Ore works like catci but even deadlier, you better mine it quickly!
+- Uranium Blocks have the same interaction with the player as Lava (i.e. deals damage to you if you walk into it)
+- Uranium Blocks, unlike Lava, also damage mobs, so they work as an efficient trap if you can predict mob movement.
 #### v1.2.1
-#### Tuning:
+##### Tuning:
 - fix RAM dedication to allow the game to actually start up
-#### Music:
+##### Music:
 - rename Wandering A, B, and C to Wandering, Flutter, and Insane Slimes respectively
-#### Tweaking:
+##### Tweaking:
 - fix combat so you can't just get knocked into a wall and immediately die
 #### v1.2.0
 ##### Internal:

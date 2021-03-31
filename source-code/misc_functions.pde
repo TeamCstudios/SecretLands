@@ -19,6 +19,53 @@ void initialize(){
   health = 16;
 }
 
+void changeSelection(){
+  selection++;
+  if(selection == 3){
+    selection = 5;
+  }
+  if(selection == 1){
+    if(inventory[1] < 20){
+      changeSelection();
+    }
+  } else if(selection == 2){
+    if(inventory[2] < 20){
+      changeSelection();
+    }
+  }else if(selection == 5){
+    if(inventory[5] < 20){
+      changeSelection();
+    }
+  }else if(selection == 6){
+    if(inventory[6] < 20){
+      changeSelection();
+    }
+  }else if(selection == 7){
+    if(inventory[7] < 20){
+      changeSelection();
+    }
+  }else if(selection == 8){
+    if(inventory[8] < 20){
+      changeSelection();
+    }
+  }else if(selection == 9){
+    if(inventory[9] < 20){
+      changeSelection();
+    }
+  }else if(selection == 10){
+    selection = 0;
+  }
+}
+void loadingPercentage(int add){
+  loadingPercentage+=add;
+  fill(255,0,0);
+  background(105,55,155);
+  textSize(36);
+  fill(0);
+  text("Loading files from the cloud...",10,450);
+  rect(10,480,loadingPercentage*17.3913043478,30);
+}
+
 void framecounter(){
   //if(millis() % 1000 == 0){
     //timeStorage++;

@@ -20,6 +20,13 @@ void saveWorld(){
     }
   }
   saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);
+  save = new String[mapSize * 1000];
+  for(int i = 0; i < save.length / 1000; i++){
+    for(int j = 0; j < 1000; j++){
+      save[i * 1000 + j] = "" + map[i][j][3];
+    }
+  }
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-3.slsav", save);
   String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 16];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
@@ -78,10 +85,12 @@ void loadWorld(){
   String[] worldsave;
   String[] worldsave1;
   String[] worldsave2;
+  String[] worldsave3;
   String[] datasave;
   worldsave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
   worldsave1 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
   worldsave2 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
+  worldsave3 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-3.slsav");
   datasave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
   if(worldsave == null || datasave == null){
     textEntry = "";
@@ -99,6 +108,11 @@ void loadWorld(){
     for(int i = 0; i < worldsave2.length / 1000; i++){
       for(int j = 0; j < 1000; j++){
         map[j][i][2] = int(worldsave2[j + i * 1000]);
+      }
+    }
+    for(int i = 0; i < worldsave3.length / 1000; i++){
+      for(int j = 0; j < 1000; j++){
+        map[j][i][3] = int(worldsave3[j + i * 1000]);
       }
     }
     for(int i = 0; i < datasave.length - 8; i++){
@@ -121,7 +135,7 @@ void loadWorld(){
       } else if(i < objCap * 4 + mobCap * 5){
         mobhealth[i % mobCap] = int(datasave[i]);
       } else if(i < objCap * 4 + mobCap * 5 + inventory.length){
-        inventory[i - objCap * 4] = int(datasave[i]);
+        inventory[i - objCap * 4 - mobCap * 5] = int(datasave[i]);
       } else{
         xpos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length]);
         ypos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 1]);

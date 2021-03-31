@@ -182,3 +182,38 @@ void terrainGenDrawCaves2() {
   if(x > mapSize) { x = 0; y += s; t0 = 1;  t1 += c1; bt1 += bc1; bt0 = 1; wt1 += wc1; wt0 = 1; tt1 += tc1; tt0 = 1;}
   t0 += c0; bt0 += bc0; wt0 += wc0; tt0 += tc0;}
 }
+
+void terrainGenDrawCaves3() { 
+  x = 0;
+  y = -s;
+  int z = 0; for(int i = 0; i < speed; i ++) {
+  r0 = noise(t0,t1);
+  br0 = noise(bt0,bt1);
+  if(r0 > cxl*1.65){
+    // Volcano
+    z = 1;
+  }else if(r0 > cxl*1.2 && r0 < cxl*1.4){ 
+    // Stone
+    z = 6;
+  }else if(r0 < cxl*1.2){
+    // Floors
+    z = 7;
+    if(br0 > bl*1.21){
+      //Underground Lake
+      z = 16;
+    }else if(br0 > bl*1.1){
+      //Underground Grove
+      z = 14;
+    }else if(br0 > bl*1.1-bb && br0 < bl*1.1){ 
+      //Undergrove Transition
+      z = 15;
+    }
+  }else{
+    //Cave Walls
+    z = 0;
+  }
+  map[int(x)][int(y) + 1][3] = z; 
+  x += s;
+  if(x > mapSize) { x = 0; y += s; t0 = 1;  t1 += c1; bt1 += bc1; bt0 = 1; wt1 += wc1; wt0 = 1; tt1 += tc1; tt0 = 1;}
+  t0 += c0; bt0 += bc0; wt0 += wc0; tt0 += tc0;}
+}

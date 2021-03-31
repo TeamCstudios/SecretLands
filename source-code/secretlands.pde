@@ -1,10 +1,10 @@
 import processing.net.*;
 import processing.sound.*;
 
-int lastxpos = 9999;int lastypos = 9999;int scene = 0;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
+int lastxpos = 9999;int lastypos = 9999;int scene = -10;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
 int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; int tX; int tY; int tState;
-final String verCode = "a121"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
-int inputEntryHorz = 0; int inputEntryVert = 0;
+final String verCode = "a130"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int inputEntryHorz = 0; int inputEntryVert = 0; int loadingPercentage = 0;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -17,20 +17,52 @@ void settings(){
 void setup(){
   frameRate(60);
   background(105,55,155);
-  textSize(36);
-  fill(0);
-  text("Loading files from the cloud...",10,450);
-  downloadSchematics();
-  loadMusic();
-  versionz();
-  loadSettings();
 }
 
 void draw(){
-  if(!(scene == 3 || scene == 4)){
+  if(scene > 0 && !(scene == 3 || scene == 4)){
     stopmusic();
   }
-  if(scene == 0){
+  if(scene == -10){
+    loadingPercentage(1);
+    scene++;
+  }else if(scene == -9){
+    downloadSchematics();
+    scene++;
+  }else if(scene == -8){
+    lm1();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -7){
+    lm2();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -6){
+    lm3();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -5){
+    lm4();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -4){
+    lm5();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -3){
+    lm6();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -2){
+    lm7();
+    loadingPercentage(2);
+    scene++;
+  }else if(scene == -1){
+    loadingPercentage(1);
+    versionz();
+    loadSettings();
+    scene = 0;
+  }else if(scene == 0){
     initialize();
     background(100);
     fill(255);
@@ -84,6 +116,7 @@ void draw(){
     terrainGenDraw();
     terrainGenDrawCaves();
     terrainGenDrawCaves2();
+    terrainGenDrawCaves3();
     nameWorld();
     worldnames();
     createObjects();
@@ -113,21 +146,7 @@ void draw(){
     framecounter();
     drawHealth();
     drawArmor();
-    if(!(music1.isPlaying()) && !(music2.isPlaying()) && !(music3.isPlaying()) && zpos == 0){
-      if(random(1) > .98){
-        wandering();
-      }
-    }
-    if(!(music4.isPlaying()) && !(music5.isPlaying()) && zpos == 1){
-      if(random(1) > .98){
-        caves();
-      }
-    }
-    if(!(music6.isPlaying()) && zpos == 2){
-      if(random(1) > .98){
-        caves2();
-      }
-    }
+    doPlayMusic();
   }else if(scene == 4){
     background(86); 
     inventory();
@@ -182,7 +201,7 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.2.1 Alpha",800,690);
+  text("The Secret Lands, Version 1.3.0 Alpha",800,690);
   if(scene == 3){  
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
@@ -197,8 +216,10 @@ void draw(){
       text("Placing: Iron",470,690);
     }else if(selection == 7){  
       text("Placing: Tin",470,690);
-    }else if(selection == 7){  
+    }else if(selection == 8){  
       text("Placing: Osmium",470,690);
+    }else if(selection == 9){  
+      text("Placing: Uranium",470,690);
     }
     textSize(25);
     text(framerate + " FPS",910,25);
@@ -236,45 +257,7 @@ void keyPressed(){
       scene = 4;
     }
     if(key == 'x' || key == 'X'){
-      if(selection == 0){
-        if(inventory[1] > 19){
-          selection++;
-        }else if(inventory[2] > 19){
-          selection = 2;
-        }
-      } else if(selection == 1){
-        if(inventory[2] > 19){
-          selection = 2;
-        }else{
-          selection = 0;
-        }
-      }else if(selection == 2){
-        if(inventory[5] > 19){
-          selection = 5;
-        }else{
-          selection = 0;
-        }
-      }else if(selection == 5){
-        if(inventory[6] > 19){
-          selection = 6;
-        }else{
-          selection = 0;
-        }
-      }else if(selection == 6){
-        if(inventory[7] > 19){
-          selection = 7;
-        }else{
-          selection = 0;
-        }
-      }else if(selection == 7){
-        if(inventory[8] > 19){
-          selection = 8;
-        }else{
-          selection = 0;
-        }
-      }else if(selection == 8){
-        selection = 0;
-      }
+      changeSelection();
     }
     if(key == 'z' || key == 'Z'){
       if(selDir < 4){
@@ -367,6 +350,12 @@ void keyPressed(){
           }
           if(objectValue == 14){
             inventory[8]++;
+            objectxpos[currentObjectID] = 0;
+            objectypos[currentObjectID] = 0;
+            objectvalue[currentObjectID] = 0;
+          }
+          if(objectValue == 15){
+            inventory[9]++;
             objectxpos[currentObjectID] = 0;
             objectypos[currentObjectID] = 0;
             objectvalue[currentObjectID] = 0;
@@ -482,6 +471,16 @@ void keyPressed(){
       scene = 6;
     }
   }else if(scene == 4){
+    if(keyCode == LEFT){
+      if(craftingSelection > 0){
+        craftingSelection--;
+      }
+    }
+    if(keyCode == RIGHT){
+      if(craftingSelection < 5){
+        craftingSelection++;
+      }
+    }
     if(key == 'i' || key == 'I'){
       scene = 3;
     }

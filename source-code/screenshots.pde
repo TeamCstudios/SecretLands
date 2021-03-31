@@ -29,6 +29,7 @@ void takeScreenshot(){
         if(map[xpos + i][ypos + j][zpos] == -6){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(0);}
         if(map[xpos + i][ypos + j][zpos] == -7){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(0);}
         if(map[xpos + i][ypos + j][zpos] == -8){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(0);}
+        if(map[xpos + i][ypos + j][zpos] == -9){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(0);}
         if(map[xpos + i][ypos + j][zpos] == -31){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(0);}
       }else{
         if(map[xpos + i][ypos + j][zpos] == -1){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(145,99,7);}
@@ -37,6 +38,7 @@ void takeScreenshot(){
         if(map[xpos + i][ypos + j][zpos] == -6){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(209,194,182);}
         if(map[xpos + i][ypos + j][zpos] == -7){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(111,125,113);}
         if(map[xpos + i][ypos + j][zpos] == -8){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(84,109,133);}
+        if(map[xpos + i][ypos + j][zpos] == -9){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(86,199,30);}
         if(map[xpos + i][ypos + j][zpos] == -31){img.pixels[((j*xFOV+yx)*width) + i * xFOV + vx] = color(117,96,28);}
       }
     }}

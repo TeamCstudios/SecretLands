@@ -28,7 +28,7 @@ Ocean:
 */
 
 final int mapSize = 1000;
-int[][][] map = new int[mapSize + 1][mapSize + 1][3];
+int[][][] map = new int[mapSize + 1][mapSize + 1][4];
 
 void drawTerrain(){
   int value = 0;
@@ -50,6 +50,7 @@ void drawTerrain(){
     else if(value == -6){fill(209,194,182);stroke(0);}
     else if(value == -7){fill(111,125,113);stroke(0);}
     else if(value == -8){fill(84,109,133);stroke(0);}
+    else if(value == -9){fill(86,199,30);stroke(0);}
     else if(value == -31){fill(117,96,28);stroke(0);}
     else if(value == 2){fill(60);}
     else if(value == 3){fill(70);}
@@ -75,21 +76,14 @@ void drawTerrain(){
         selX = xpos + i;
         selY = ypos + j;
         if(framecounter < 2){
-          if(value < 0 && selection > 0){
-            fill(255,0,0);
-          } else if(selection == 1){
-            fill(145,99,7);
-            stroke(0);
-          } else if(selection == 2){
-            fill(160);
-            stroke(0);
-          } else if(selection == 5){
-            fill(245,149,98);
-            stroke(0);
-          } else if(selection == 6){
-            fill(209,194,182);
-            stroke(0);
-          }
+          if(value < 0 && selection > 0){fill(255,0,0);
+          }else if(selection == 1){fill(145,99,7);stroke(0);
+          }else if(selection == 2){fill(160);stroke(0);
+          }else if(selection == 5){fill(245,149,98);stroke(0);
+          }else if(selection == 6){fill(209,194,182);stroke(0);
+          }else if(selection == 7){fill(111,125,113);stroke(0);
+          }else if(selection == 8){fill(84,109,133);stroke(0);
+          }else if(selection == 9){fill(86,199,30);stroke(0);}
         }
       }
     } else if(selDir == 2){
@@ -98,21 +92,14 @@ void drawTerrain(){
         selX = xpos + i;
         selY = ypos + j;
         if(framecounter < 2){
-          if(value < 0 && selection > 0){
-            fill(255,0,0);
-          } else if(selection == 1){
-            fill(145,99,7);
-            stroke(0);
-          } else if(selection == 2){
-            fill(160);
-            stroke(0);
-          } else if(selection == 5){
-            fill(245,149,98);
-            stroke(0);
-          } else if(selection == 6){
-            fill(209,194,182);
-            stroke(0);
-          }
+          if(value < 0 && selection > 0){fill(255,0,0);
+          }else if(selection == 1){fill(145,99,7);stroke(0);
+          }else if(selection == 2){fill(160);stroke(0);
+          }else if(selection == 5){fill(245,149,98);stroke(0);
+          }else if(selection == 6){fill(209,194,182);stroke(0);
+          }else if(selection == 7){fill(111,125,113);stroke(0);
+          }else if(selection == 8){fill(84,109,133);stroke(0);
+          }else if(selection == 9){fill(86,199,30);stroke(0);}
         }
       }
     } else if(selDir == 3){
@@ -121,21 +108,14 @@ void drawTerrain(){
         selX = xpos + i;
         selY = ypos + j;
         if(framecounter < 2){
-          if(value < 0 && selection > 0){
-            fill(255,0,0);
-          } else if(selection == 1){
-            fill(145,99,7);
-            stroke(0);
-          } else if(selection == 2){
-            fill(160);
-            stroke(0);
-          } else if(selection == 5){
-            fill(245,149,98);
-            stroke(0);
-          } else if(selection == 6){
-            fill(209,194,182);
-            stroke(0);
-          }
+          if(value < 0 && selection > 0){fill(255,0,0);
+          }else if(selection == 1){fill(145,99,7);stroke(0);
+          }else if(selection == 2){fill(160);stroke(0);
+          }else if(selection == 5){fill(245,149,98);stroke(0);
+          }else if(selection == 6){fill(209,194,182);stroke(0);
+          }else if(selection == 7){fill(111,125,113);stroke(0);
+          }else if(selection == 8){fill(84,109,133);stroke(0);
+          }else if(selection == 9){fill(86,199,30);stroke(0);}
         }
       }
     } else if(selDir == 4){
@@ -144,21 +124,14 @@ void drawTerrain(){
         selX = xpos + i;
         selY = ypos + j;
         if(framecounter < 2){
-          if(value < 0 && selection > 0){
-            fill(255,0,0);
-          } else if(selection == 1){
-            fill(145,99,7);
-            stroke(0);
-          } else if(selection == 2){
-            fill(160);
-            stroke(0);
-          } else if(selection == 5){
-            fill(245,149,98);
-            stroke(0);
-          } else if(selection == 6){
-            fill(209,194,182);
-            stroke(0);
-          }
+          if(value < 0 && selection > 0){fill(255,0,0);
+          }else if(selection == 1){fill(145,99,7);stroke(0);
+          }else if(selection == 2){fill(160);stroke(0);
+          }else if(selection == 5){fill(245,149,98);stroke(0);
+          }else if(selection == 6){fill(209,194,182);stroke(0);
+          }else if(selection == 7){fill(111,125,113);stroke(0);
+          }else if(selection == 8){fill(84,109,133);stroke(0);
+          }else if(selection == 9){fill(86,199,30);stroke(0);}
         }
       }
     }

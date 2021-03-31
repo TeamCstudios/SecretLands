@@ -38,6 +38,8 @@ void drawObjects(){
             fill(155,185,145);
           } else if(objectvalue[o] == 14){
             fill(58,80,120);
+          } else if(objectvalue[o] == 15){
+            fill(117,255,48);
           } else {
             noFill();
           }
@@ -51,7 +53,7 @@ void drawObjects(){
               rect(i * xFOV + 2,j * xFOV + 2,xFOV - 4,xFOV - 4);
             }else if(objectvalue[o] == 7){
               rect(i * xFOV + 1,j * xFOV + 1,xFOV - 2,xFOV - 2);
-            }else if((objectvalue[o] > 7 && objectvalue[o] < 11) || (objectvalue[o] > 12 && objectvalue[o] < 15)){
+            }else if((objectvalue[o] > 7 && objectvalue[o] < 11) || (objectvalue[o] > 12 && objectvalue[o] < 16)){
               rect(i * xFOV + objectxpos[o] % 6 + 1,j * xFOV + objectypos[o] % 5 + objectxpos[o] % 2,2,2);
               rect(i * xFOV + objectypos[o] % 5 + objectxpos[o] % 3,j * xFOV + objectxpos[o] % 6 + objectxpos[o] % 3,2,2);
               rect(i * xFOV + objectxpos[o] % 5 + objectypos[o] % 2,j * xFOV + objectypos[o] % 5 + 1,2,2);
@@ -91,6 +93,22 @@ void createObjects(){
       generateLoweringDungeon(stX,stY,i);
     }
   }
+  for(int i = 0; i < 4; i++){
+    stX = int(random(mapSize - 200) + 100);
+    stY = int(random(mapSize - 200) + 100);
+    loopEsc = 0;
+    while(!(map[stX][stY][2] == 7 || map[stX][stY][2] == 6 && map[stX][stY + 7][3] == 7)){
+      stX = int(random(mapSize - 200) + 100);
+      stY = int(random(mapSize - 200) + 100);
+      loopEsc++;
+      if(loopEsc > 100000){
+        break;
+      }
+    }
+    if(loopEsc < 100001){
+      generateLoweringDungeon2(stX,stY,i+7);
+    }
+  }
   tX = int(random(mapSize - 200) + 100);
   tY = int(random(mapSize - 200) + 100);
   loopEsc = 0;
@@ -122,6 +140,26 @@ void createObjects(){
         loadSchematic("oceanruin1",stX,stY,0);
       }else{
         loadSchematic("oceanruin2",stX,stY,0);
+      }
+    }
+  }
+  for(int i = 0; i < 4; i++){
+    stX = int(random(mapSize - 200) + 100);
+    stY = int(random(mapSize - 200) + 100);
+    loopEsc = 0;
+    while(!(map[stX][stY][0] == 8 || map[stX][stY][0] == 9)){
+      stX = int(random(mapSize - 200) + 100);
+      stY = int(random(mapSize - 200) + 100);
+      loopEsc++;
+      if(loopEsc > 100000){
+        break;
+      }
+    }
+    if(loopEsc < 100001){
+      if(loopEsc % 7 == 5){
+        loadSchematic("castlebaseruined",stX,stY,0);
+      }else{
+        loadSchematic("castlebase",stX,stY,0);
       }
     }
   }
@@ -176,8 +214,10 @@ void createObjects(){
     }else{
       if(randb < .3){
         objectvalue[o] = 14;
-      }else{
+      }else if(randb < .8){
         objectvalue[o] = 13;
+      }else{
+        objectvalue[o] = 15;
       }
     }    
     if(objectvalue[o] == 6){
@@ -227,8 +267,19 @@ void createObjects(){
           }
       }
     }
-    if(objectvalue[o] > 12){
+    if(objectvalue[o] > 12 && objectvalue[o] < 15){
       while(!(map[objectxpos[o]][objectypos[o]][2] == 6)){
+          objectxpos[o] = int(random(mapSize));
+          objectypos[o] = int(random(mapSize));
+          loopEsc++;
+          if(loopEsc > 1000){
+            objectvalue[o] = 0;
+            break;
+          }
+      }
+    }
+    if(objectvalue[o] == 15){
+      while(!(map[objectxpos[o]][objectypos[o]][3] == 6)){
           objectxpos[o] = int(random(mapSize));
           objectypos[o] = int(random(mapSize));
           loopEsc++;
@@ -285,6 +336,8 @@ void createObjects(){
       objectzpos[o] = 1;
     }else if(objectvalue[o] > 12 && objectvalue[o] < 15){
       objectzpos[o] = 2;
+    }else if(objectvalue[o] == 15){
+      objectzpos[o] = 3;
     }
   }
 }
@@ -306,5 +359,13 @@ void generateLoweringDungeon(int stX, int stY, int inc){
   objectxpos[objCap - 10 - inc] = stX - 1;
   objectypos[objCap - 10 - inc] = stY + 5;
   objectzpos[objCap - 10 - inc] = 2;
+  objectvalue[objCap - 10 - inc] = 11;
+}
+
+void generateLoweringDungeon2(int stX, int stY, int inc){
+  loadSchematic("lowering2",stX-5,stY,2);
+  objectxpos[objCap - 10 - inc] = stX - 1;
+  objectypos[objCap - 10 - inc] = stY + 4;
+  objectzpos[objCap - 10 - inc] = 3;
   objectvalue[objCap - 10 - inc] = 11;
 }

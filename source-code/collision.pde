@@ -128,7 +128,7 @@ void collision(){
   if((playerColor == 1 || playerColor == 4) && (tileValue <= 6 || (tileValue >= 16 && tileValue < 18)) || (playerColor == 2 || playerColor == 5) && (tileValue <= 6 || tileValue == 17) || playerColor == 6 && (tileValue < 0) || playerColor == 3 && (tileValue < 2 || (tileValue >= 16 && tileValue < 18))){
     xpos = lastxpos;
     ypos = lastypos;
-    if(tileValue == 1){
+    if(tileValue == 1 || tileValue == -9){
       doDamage();
     }
     drawTerrain();
@@ -198,6 +198,12 @@ void collision(){
         }else{
           zpos--;
         }
+      }else if(objectzpos[currentObjectID] == 3){
+        if(zpos == 2){
+          zpos++;
+        }else{
+          zpos--;
+        }
       }
       xm += 3;
       ym += 3;
@@ -213,6 +219,10 @@ void collision(){
       mobhealth[99] = 100;
     }else if(tState == 1){
       whyDoIHearBossMusic();
+    }
+  }else if(objectValue == 15){
+    if(framecounter == 0 || framecounter == 3){
+      doDamage();
     }
   }
   objectValue = 0;
