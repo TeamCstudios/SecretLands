@@ -1,10 +1,11 @@
 import processing.net.*;
 import processing.sound.*;
 
-int lastxpos = 9999;int lastypos = 9999;int scene = -10;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
-int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; int tX; int tY; int tState;
-final String verCode = "a130"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
-int inputEntryHorz = 0; int inputEntryVert = 0; int loadingPercentage = 0;
+int lastxpos = 9999;int lastypos = 9999;int scene = -10;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;
+int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
+int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; 
+int tX; int tY; int tState; final String verCode = "a140"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int inputEntryHorz = 0; int inputEntryVert = 0; int loadingPercentage = 0; int nullCountdown = 0; String nullFeedback; int progress; int difficulty = 2;
 
 // CHANGE TO TRUE IF USING A MAC MACHINE
 final boolean isOSX = false;
@@ -73,6 +74,7 @@ void draw(){
     text("Press SHIFT for New Game, Press CONTROL to continue.",20,660);
     textSize(26);
     text("[U] Volume: "+ int(100 * float(nf(soundVolume, 0, 1))) + "% [I]",500,590);
+    text("[C] Difficulty: "+ difficultyWorded() + " [V]",50,590);
     textSize(16);
     if(isLatestRelease){
       text("You are on the latest version.",300,75);
@@ -92,8 +94,8 @@ void draw(){
     text("9: Europa",20,410);
     text("10: Customized (choose your own settings)",20,420);
     text("The Secret Lands belongs to Team CStudios Organization.",700,200);
-    text("All programming created by MrJoCrafter (2020-)",700,210);
-    text("Terrain algorithm by Yoctobyte and MrJoCrafter (2017-2019)",700,220);
+    text("Terrain algorithm by Yoctobyte and MrJoCrafter (2017-2019)",700,210);
+    text("All other programming created by MrJoCrafter (2020-)",700,220);
     text("Soundtrack by Takijana and MrJoCrafter(2020-)",700,230);
     text("Controls",600,400);
     text("Arrow Keys / WASD: Move/Select",600,410);
@@ -135,7 +137,7 @@ void draw(){
     }
     drawObjects();
     checkDeath();
-    if(framecounter > 3 && framecounter % 2 == 0 && random(1) > .99){
+    if(framecounter > 3 && framecounter % 2 == 0 && random(1) > (.99 + (4-difficulty)/.3)){
       spawnMob();
     }
     if(framecounter == 4){
@@ -147,6 +149,23 @@ void draw(){
     drawHealth();
     drawArmor();
     doPlayMusic();
+  }else if(scene == 9){
+    background(0,0,240); 
+    drawTerrain();
+    drawObjects();
+    drawMobs();
+    fill(55);
+    noStroke();
+    rect(20,475,800,50);
+    fill(255);
+    textSize(36);
+    if(nullCountdown > 0){
+      text(nullFeedback,21,505);
+      nullCountdown--;
+    }else{
+      text("/" + textEntry,21,505);
+    }
+    
   }else if(scene == 4){
     background(86); 
     inventory();
@@ -201,8 +220,8 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.3.0 Alpha",800,690);
-  if(scene == 3){  
+  text("The Secret Lands, Version 1.4.0 Alpha",800,690);
+  if(scene == 3 || scene == 9){  
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
       text("Placing: None",470,690);
@@ -255,6 +274,10 @@ void keyPressed(){
     }
     if(key == 'i' || key == 'I'){
       scene = 4;
+    }
+    if(key == '/' || key == '?'){
+      scene = 9;
+      textEntry = "";
     }
     if(key == 'x' || key == 'X'){
       changeSelection();
@@ -394,6 +417,16 @@ void keyPressed(){
       if(soundVolume < 1){
         soundVolume+= 0.1;
         setSettings();
+      }
+    }
+    if(key == 'c' || key == 'C'){
+      if(difficulty > 1){
+        difficulty--;
+      }
+    }
+    if(key == 'v' || key == 'V'){
+      if(difficulty < 4){
+        difficulty++;
       }
     }
   }else if(scene == 10){
@@ -541,11 +574,36 @@ void keyPressed(){
       loadWorldFull();
     } else if(keyCode == ALT){
       textEntry = "";
+    } else if(keyCode == BACKSPACE){
+      char[] textEntry2 = textEntry.toCharArray();
+      textEntry = "";
+      for(int i = 0; i < textEntry2.length - 1; i++){
+        textEntry = textEntry + textEntry2[i];
+      }
     } else if(keyCode == CONTROL){
       textEntry = "";
       scene = 0;
     } else if(key == '\n'){
       textEntry = "";
+    } else {
+      textEntry = textEntry + key;
+    }
+  }else if (scene == 9){
+    if(keyCode == ENTER){
+      nullFeedback = parseCommand(textEntry);
+      nullCountdown = 75;
+      textEntry = "";
+    } else if(keyCode == ALT){
+      textEntry = "";
+    } else if(keyCode == BACKSPACE){
+      char[] textEntry2 = textEntry.toCharArray();
+      textEntry = "";
+      for(int i = 0; i < textEntry2.length - 1; i++){
+        textEntry = textEntry + textEntry2[i];
+      }
+    } else if(keyCode == CONTROL){
+      textEntry = "";
+      scene = 3;
     } else {
       textEntry = textEntry + key;
     }

@@ -27,7 +27,7 @@ void saveWorld(){
     }
   }
   saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-3.slsav", save);
-  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 16];
+  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 17];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
       save2[i] = "" + objectxpos[i % objCap];
@@ -65,7 +65,8 @@ void saveWorld(){
       save2[objCap * 4 + mobCap * 5 + inventory.length + 12] = "" + tX;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 13] = "" + tY;
       save2[objCap * 4 + mobCap * 5 + inventory.length + 14] = "" + tState;
-      save2[objCap * 4  + mobCap * 5 + inventory.length + 15] = worldName;
+      save2[objCap * 4 + mobCap * 5 + inventory.length + 15] = "" + difficulty;
+      save2[objCap * 4  + mobCap * 5 + inventory.length + 16] = worldName;
     }
   }
   saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".sldat", save2);
@@ -152,7 +153,8 @@ void loadWorld(){
         tX = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
         tY = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 12]);
         tState = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 14]);
-        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 15];
+        difficulty = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 15]);
+        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 16];
         i++;
       }
     }

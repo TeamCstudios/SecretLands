@@ -1,4 +1,4 @@
-final int mobCap = 100;
+final int mobCap = 150;
 int[] mobxpos = new int[mobCap];
 int[] mobypos = new int[mobCap];
 int[] mobzpos = new int[mobCap];
@@ -28,6 +28,8 @@ void drawMobs(){
             }
           } else if(mobvalue[o] == 6){
             fill(117,96,28);
+          } else if(mobvalue[o] == 7){
+            fill(102,184,51);
           } else {
             noFill();
           }
@@ -45,6 +47,11 @@ void drawMobs(){
                 inventory[29]++;
               }else if(mobvalue[o] == 5){
                 inventory[2]++;
+              }else if(mobvalue[o] == 7){
+                inventory[6]+=5;
+                for(int b = 0;b < int(progress/3000) + 1 + 2;b++){
+                  spawnMob();
+                }
               }else if(mobvalue[o] == 6){
                 caves();
                 tState = 2;
@@ -103,7 +110,7 @@ void drawMobs(){
               ellipse(i * xFOV,j * xFOV,xFOV,xFOV/2);
             }else if(mobvalue[o] == 5){
               ellipse(i * xFOV+1,j * xFOV,xFOV-2,xFOV);
-            }else if(mobvalue[o] == 6){
+            }else if(mobvalue[o] == 6 || mobvalue[o] == 7){
               ellipse(i * xFOV-1,j * xFOV,xFOV+2,xFOV-2);
             }
           }
@@ -145,6 +152,29 @@ void moveMobs(){
             newy++;
           }
         }else if(randa > .15){
+          if(ypos + (height/xFOV/2) < newy){
+            newy--;
+          }else if(ypos + (height/xFOV/2) > newy){
+            newy++;
+          }else if(xpos + (width/xFOV/2) < newx){
+            newx--;
+          }else if(xpos + (width/xFOV/2) > newx){
+            newx++;
+          }
+        }
+      }else if(mobvalue[o] == 7){
+        if(random(1) > .5){
+          if(xpos + (width/xFOV/2) < newx){
+            newx--;
+          }else if(xpos + (width/xFOV/2) > newx){
+            newx++;
+          }else if(ypos + (height/xFOV/2) < newy){
+            newy--;
+          }else if(ypos + (height/xFOV/2) > newy){
+            newy++;
+          }
+        }
+        if(random(1) > .5){
           if(ypos + (height/xFOV/2) < newy){
             newy--;
           }else if(ypos + (height/xFOV/2) > newy){
@@ -301,6 +331,17 @@ void moveMobs(){
         }else if(map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] == -9){
           mobhealth[o] -= 5;
         }
+      }else if(mobvalue[o] == 7){
+        if(!(map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] <= 6 || (map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] >= 16 && map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] < 18))){
+          mobxpos[o] = newx;
+          mobypos[o] = newy;
+        }else if(map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] == -9){
+          mobhealth[o] -= 5;
+        }else if(map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] < 0 && map[abs(newx % mapSize)][abs(newy % mapSize)][zpos] > -9){
+          if(random(1) > .65 + 0.03*(-1*map[newx][newy][mobzpos[o]])){
+            map[newx][newy][mobzpos[o]] = map[mobxpos[o]][mobypos[o]][mobzpos[o]];
+          }
+        }
       }
     }
   }
@@ -311,13 +352,30 @@ void spawnMob(){
   int loopEsc = 0;
   for(int o = 0; o < mobCap; o++){
     test = false;
-    if(mobvalue[o] == 0 && zpos == 0){
+    if(mobvalue[o] == 0 && zpos == 0 && progress > 1000 && random(1) > .5){
+      mobvalue[o] = 7;
+      test = true;
+      mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
+      mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
+      if(mobvalue[o] == 7){
+        mobhealth[o] = int(65 * (difficulty/.5)) + int(progress/255);
+        while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] <= 6 || (map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] >= 16 && map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 18)){
+          mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
+          mobypos[o] = ypos + (-1 * o % 2) * int(random(20,40)) + (-1 * o % 2) * (height/xFOV/2);
+          loopEsc++;
+          if(loopEsc > 1000){
+            mobvalue[o] = 0;
+            break;
+          }
+        }
+      }
+    }else if(mobvalue[o] == 0 && zpos == 0){
       mobvalue[o] = int(random(1,4.3));
       test = true;
       mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
       mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
       if(mobvalue[o] == 1){
-        mobhealth[o] = 12;
+        mobhealth[o] = int(12 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] <= 6 || (map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] >= 16 && map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 18)){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(20,40)) + (-1 * o % 2) * (height/xFOV/2);
@@ -328,7 +386,7 @@ void spawnMob(){
           }
         }
       }else if(mobvalue[o] == 2){
-        mobhealth[o] = 10;
+        mobhealth[o] = int(10 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] <= 6 || (map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] > 16 && map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 18)){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(20,40)) + (-1 * o % 2) * (height/xFOV/2);
@@ -339,7 +397,7 @@ void spawnMob(){
           }
         }
       }else if(mobvalue[o] == 3){
-        mobhealth[o] = 15;
+        mobhealth[o] = int(15 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] <= 6 || (map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] >= 16 && map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 18)){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(20,40)) + (-1 * o % 2) * (height/xFOV/2); 
@@ -350,7 +408,7 @@ void spawnMob(){
           }
         }
       }else if(mobvalue[o] == 4){
-        mobhealth[o] = 20;
+        mobhealth[o] = int(20 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] <= 1){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
@@ -367,7 +425,7 @@ void spawnMob(){
       mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
       mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
       if(mobvalue[o] == 5){
-      mobhealth[o] = 30;
+      mobhealth[o] = int(30 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 0){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
@@ -384,7 +442,7 @@ void spawnMob(){
       mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
       mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
       if(mobvalue[o] == 5){
-      mobhealth[o] = 70;
+      mobhealth[o] = int(70 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 0){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
@@ -401,7 +459,7 @@ void spawnMob(){
       mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(20,40)) + (-1 * framecounter % 2) * (width/xFOV/2);
       mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
       if(mobvalue[o] == 5){
-      mobhealth[o] = 80;
+      mobhealth[o] = int(80 * (difficulty/.5));
         while(map[abs(mobxpos[o] % mapSize)][abs(mobypos[o] % mapSize)][zpos] < 0){
           mobxpos[o] = xpos + (-1 * framecounter % 2) * int(random(1,20)) + (-1 * framecounter % 2) * (width/xFOV/2);
           mobypos[o] = ypos + (-1 * o % 2) * int(random(1,20)) + (-1 * o % 2) * (height/xFOV/2);
@@ -416,6 +474,17 @@ void spawnMob(){
     if(mobvalue[o] != 0 && test){
       mobzpos[o] = zpos;
       break;
+    }
+  }
+}
+
+void spawnSpecificMob(int x,int y,int z,int id){
+  for(int o = 0; o < mobCap; o++){
+    if(mobvalue[o] == 0){
+      mobvalue[o] = id;
+      mobxpos[o] = x;
+      mobypos[o] = y;
+      mobypos[o] = z;
     }
   }
 }

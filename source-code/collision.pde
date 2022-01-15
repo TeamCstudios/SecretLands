@@ -1,5 +1,4 @@
 void collision(){
-  
   if(inputEntryVert < -2 && inputEntryHorz > 2){
     xm += cSpeed;
     ym -= cSpeed;

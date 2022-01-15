@@ -86,7 +86,7 @@ void doDamage(){
   if(armor > 0){
     armor--;
   }else{
-    if((frameCount - lastDamageFrame) > 6){
+    if((frameCount - lastDamageFrame) > ((4-difficulty)*2 + 2)){
       health--;
       lastDamageFrame = frameCount;
     }

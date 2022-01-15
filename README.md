@@ -6,6 +6,18 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.4.0
+##### Difficulty:
+- Add the difficulty system with four difficulties (Easy, Normal, Hard, Lunatic)
+- Difficulty now scales invincibility frames, mob health, and mob spawning
+##### Mobs:
+- Add the Sieger mob, which is a mob that only shows up on the surface when you're stronger and can break structures.
+##### Slash Commands:
+- Add the commands system
+- Add /summonmob, /summonobject, /settile, /heal, /give, /setweapon, /teleport, /difficulty, and /setarmor, which are all fairly self-explanatory
+- Add /renameworld, which **finally** fixes #4
+##### Tweaks:
+- Make Backspace key work in text entry for world saves
 #### v1.3.0
 ##### Music:
 - Retuned the music downloading system.

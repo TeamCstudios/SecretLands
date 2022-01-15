@@ -61,4 +61,10 @@ void downloadSchematics(){
     saveStrings(filePath() + "schematics/castlebaseruined.slschem",updates);
   }
   loadingPercentage(1);
+  c = loadStrings(filePath() + "schematics/mountainbastion.slschem");
+  if(c == null){
+    updates = loadStrings("https://github.com/TeamCstudios/SecretLands/raw/master/public-schematics/mountainbastion.slschem");
+    saveStrings(filePath() + "schematics/mountainbastion.slschem",updates);
+  }
+  loadingPercentage(1);
 }

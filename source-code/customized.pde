@@ -1,4 +1,4 @@
-int leSelection = 1; float x1 = 0.3; float x2 = 0.6; float x3  = 0.5; float x4  = 0.6; float x5  = 0.1;
+int leSelection = 1; float x1 = 0.3; float x2 = 0.6; float x3 = 0.5; float x4 = 0.6; float x5 = 0.1;
 void customMenu(){
   background(100);
   fill(185);

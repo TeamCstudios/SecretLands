@@ -87,6 +87,13 @@ void framecounter(){
       armor++;
     }
   }
+  if(frameruleCounter % 7 == 0){
+    progress = 0;
+    for(int i = 0;i < 30;i++){
+      progress+=inventory[i];
+    }
+    progress+=attackPower*20+armorPower*25;
+  }
   if(framecounter == 0){
     framerate = int((frameCount/* - frameStorage */) / ((millis()/* - 1000 * timeStorage */) / 1000));
   }
@@ -188,4 +195,17 @@ void countdown(){
   if(countdown == 0){
     playerColor = 1;
   }
+}
+
+String difficultyWorded(){
+  if(difficulty == 1){
+    return "Easy";
+  }else if(difficulty == 2){
+    return "Normal";
+  }else if(difficulty == 3){
+    return "Hard";
+  }else if(difficulty == 4){
+    return "Lunatic";
+  }
+  return null;
 }

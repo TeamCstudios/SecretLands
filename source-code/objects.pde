@@ -73,6 +73,17 @@ void drawObjects(){
   }
 }
 
+void createSpecificObject(int x,int y,int z,int value){
+  for(int i = 0; i < objCap; i++){
+    if(objectvalue[i] == 0){
+      objectxpos[i] = x;
+      objectypos[i] = y;
+      objectzpos[i] = z;
+      objectvalue[i] = value;
+    }
+  }
+}
+
 void createObjects(){
   int loopEsc = 0;
   int stX;
@@ -161,6 +172,22 @@ void createObjects(){
       }else{
         loadSchematic("castlebase",stX,stY,0);
       }
+    }
+  }
+  for(int i = 0; i < 2; i++){
+    stX = int(random(mapSize - 200) + 100);
+    stY = int(random(mapSize - 200) + 100);
+    loopEsc = 0;
+    while(!(map[stX][stY][0] > 1 && map[stX][stY][0] < 8 && map[stX+40][stY+40][0] > 1 && map[stX+40][stY+40][0] < 8)){
+      stX = int(random(mapSize - 200) + 100);
+      stY = int(random(mapSize - 200) + 100);
+      loopEsc++;
+      if(loopEsc > 100000){
+        break;
+      }
+    }
+    if(loopEsc < 100001){
+      loadSchematic("mountainbastion",stX,stY,0);
     }
   }
   stX = int(random(mapSize - 200) + 100);
