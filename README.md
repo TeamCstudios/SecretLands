@@ -6,6 +6,8 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.4.1
+- Fixed a tuning bug that prevented mobs from spawning on Easy, Normal, and Hard difficulties.
 #### v1.4.0
 ##### Difficulty:
 - Add the difficulty system with four difficulties (Easy, Normal, Hard, Lunatic)

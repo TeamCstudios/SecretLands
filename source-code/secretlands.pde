@@ -137,7 +137,7 @@ void draw(){
     }
     drawObjects();
     checkDeath();
-    if(framecounter > 3 && framecounter % 2 == 0 && random(1) > (.99 + (4-difficulty)/.3)){
+    if(framecounter > 3 && framecounter % 2 == 0 && random(1) > (.99 + (4-difficulty)*.003)){
       spawnMob();
     }
     if(framecounter == 4){
