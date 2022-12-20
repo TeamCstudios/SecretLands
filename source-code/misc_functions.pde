@@ -53,6 +53,10 @@ void changeSelection(){
       changeSelection();
     }
   }else if(selection == 10){
+    if(inventory[10] < 20){
+      changeSelection();
+    }
+  }else if(selection == 11){
     selection = 0;
   }
 }
@@ -140,6 +144,21 @@ String filePath(){
     return "/Users/" + System.getProperty("user.name") + "/Library/Application Support/TeamCstudios/SecretLands/";
   }else{
     return "";
+  }
+}
+
+String versionCodeStated(){
+  String[] leCode = verCode.split("");
+  if(leCode[0].equals("o")){
+    return leCode[1] + "." + leCode[2] + "." + leCode[3] + " Omega";
+  }else if(leCode[0].equals("a")){
+    return leCode[1] + "." + leCode[2] + "." + leCode[3] + " Alpha";
+  }else if(leCode[0].equals("b")){
+    return leCode[1] + "." + leCode[2] + "." + leCode[3] + " Beta";
+  }else if(leCode[0].equals("v")){
+    return leCode[1] + "." + leCode[2] + "." + leCode[3] + " Release";
+  }else{
+    return "Non-official or Error Version";
   }
 }
 void versionz(){

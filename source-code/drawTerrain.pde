@@ -51,6 +51,7 @@ void drawTerrain(){
     else if(value == -7){fill(111,125,113);stroke(0);}
     else if(value == -8){fill(84,109,133);stroke(0);}
     else if(value == -9){fill(86,199,30);stroke(0);}
+    else if(value == -10){fill(237,195,43);stroke(0);}
     else if(value == -31){fill(117,96,28);stroke(0);}
     else if(value == 2){fill(60);}
     else if(value == 3){fill(70);}
@@ -70,69 +71,20 @@ void drawTerrain(){
     else if(value == 17){fill(0,0,240);}
     else if(value == 18){fill(0,255,255);}
     rectMode(CORNER);
-    if(selDir == 1){
-      if(i == (width/xFOV/2) - 1 && j == (height/xFOV/2)){
-        tileSelectedValue = value;
-        selX = xpos + i;
-        selY = ypos + j;
-        if(framecounter < 2){
-          if(value < 0 && selection > 0){fill(255,0,0);
-          }else if(selection == 1){fill(145,99,7);stroke(0);
-          }else if(selection == 2){fill(160);stroke(0);
-          }else if(selection == 5){fill(245,149,98);stroke(0);
-          }else if(selection == 6){fill(209,194,182);stroke(0);
-          }else if(selection == 7){fill(111,125,113);stroke(0);
-          }else if(selection == 8){fill(84,109,133);stroke(0);
-          }else if(selection == 9){fill(86,199,30);stroke(0);}
-        }
-      }
-    } else if(selDir == 2){
-      if(i == (width/xFOV/2) && j == (height/xFOV/2) + 1){
-        tileSelectedValue = value;
-        selX = xpos + i;
-        selY = ypos + j;
-        if(framecounter < 2){
-          if(value < 0 && selection > 0){fill(255,0,0);
-          }else if(selection == 1){fill(145,99,7);stroke(0);
-          }else if(selection == 2){fill(160);stroke(0);
-          }else if(selection == 5){fill(245,149,98);stroke(0);
-          }else if(selection == 6){fill(209,194,182);stroke(0);
-          }else if(selection == 7){fill(111,125,113);stroke(0);
-          }else if(selection == 8){fill(84,109,133);stroke(0);
-          }else if(selection == 9){fill(86,199,30);stroke(0);}
-        }
-      }
-    } else if(selDir == 3){
-      if(i == (width/xFOV/2) + 1 && j == (height/xFOV/2)){
-        tileSelectedValue = value;
-        selX = xpos + i;
-        selY = ypos + j;
-        if(framecounter < 2){
-          if(value < 0 && selection > 0){fill(255,0,0);
-          }else if(selection == 1){fill(145,99,7);stroke(0);
-          }else if(selection == 2){fill(160);stroke(0);
-          }else if(selection == 5){fill(245,149,98);stroke(0);
-          }else if(selection == 6){fill(209,194,182);stroke(0);
-          }else if(selection == 7){fill(111,125,113);stroke(0);
-          }else if(selection == 8){fill(84,109,133);stroke(0);
-          }else if(selection == 9){fill(86,199,30);stroke(0);}
-        }
-      }
-    } else if(selDir == 4){
-      if(i == (width/xFOV/2) && j == (height/xFOV/2) - 1){
-        tileSelectedValue = value;
-        selX = xpos + i;
-        selY = ypos + j;
-        if(framecounter < 2){
-          if(value < 0 && selection > 0){fill(255,0,0);
-          }else if(selection == 1){fill(145,99,7);stroke(0);
-          }else if(selection == 2){fill(160);stroke(0);
-          }else if(selection == 5){fill(245,149,98);stroke(0);
-          }else if(selection == 6){fill(209,194,182);stroke(0);
-          }else if(selection == 7){fill(111,125,113);stroke(0);
-          }else if(selection == 8){fill(84,109,133);stroke(0);
-          }else if(selection == 9){fill(86,199,30);stroke(0);}
-        }
+    if((selDir == 1 && i == (width/xFOV/2) - 1 && j == (height/xFOV/2)) || (selDir == 2 && i == (width/xFOV/2) && j == (height/xFOV/2) + 1) || (selDir == 3 && i == (width/xFOV/2) + 1 && j == (height/xFOV/2)) || (selDir == 4 && i == (width/xFOV/2) && j == (height/xFOV/2) - 1)){
+      tileSelectedValue = value;
+      selX = xpos + i;
+      selY = ypos + j;
+      if(framecounter < 2){
+        if(value < 0 && selection > 0){fill(255,0,0);
+        }else if(selection == 1){fill(145,99,7);stroke(0);
+        }else if(selection == 2){fill(160);stroke(0);
+        }else if(selection == 5){fill(245,149,98);stroke(0);
+        }else if(selection == 6){fill(209,194,182);stroke(0);
+        }else if(selection == 7){fill(111,125,113);stroke(0);
+        }else if(selection == 8){fill(84,109,133);stroke(0);
+        }else if(selection == 9){fill(86,199,30);stroke(0);
+        }else if(selection == 10){fill(237,195,43);stroke(0);}
       }
     }
     if(attack){

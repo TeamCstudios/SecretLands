@@ -4,12 +4,9 @@ import processing.sound.*;
 int lastxpos = 9999;int lastypos = 9999;int scene = -10;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;
 int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
 int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; 
-int tX; int tY; int tState; final String verCode = "a141"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int tX; int tY; int tState; final String verCode = "a150"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
 int inputEntryHorz = 0; int inputEntryVert = 0; int loadingPercentage = 0; int nullCountdown = 0; String nullFeedback; int progress; int difficulty = 2;
-
-// CHANGE TO TRUE IF USING A MAC MACHINE
-final boolean isOSX = false;
-// CHANGE TO TRUE IF USING A MAC MACHINE
+final boolean isOSX = platform == MACOSX;
 
 void settings(){
   size(1000,700); 
@@ -120,8 +117,11 @@ void draw(){
     terrainGenDrawCaves2();
     terrainGenDrawCaves3();
     nameWorld();
+    initializeObjects();
     worldnames();
+    renderSchematics();
     createObjects();
+    initializeMobs();
     drawTerrain();
     while(tileValue < 7 || tileValue >= 16){
       xpos = int(random(mapSize));
@@ -140,7 +140,7 @@ void draw(){
     if(framecounter > 3 && framecounter % 2 == 0 && random(1) > (.99 + (4-difficulty)*.003)){
       spawnMob();
     }
-    if(framecounter == 4){
+    if(framecounter == 4 || (difficulty == 4 && framecounter == 2)){
       moveMobs();
     }
     drawMobs();
@@ -149,6 +149,16 @@ void draw(){
     drawHealth();
     drawArmor();
     doPlayMusic();
+    if(framecounter % 3 == 0 && random(1) > .88){
+      thawIce(9900);
+      killCacti();
+    }
+    if(framecounter % 4 == 0 && random(1) > .88){
+      regrowForest(4500);
+    }
+    if(framecounter % 5 == 0 && random(1) > .66){
+      growApples(4500);
+    }
   }else if(scene == 9){
     background(0,0,240); 
     drawTerrain();
@@ -220,7 +230,7 @@ void draw(){
   }
   textSize(10);
   fill(45);
-  text("The Secret Lands, Version 1.4.1 Alpha",800,690);
+  text("The Secret Lands, Version " + versionCodeStated(),800,690);
   if(scene == 3 || scene == 9){  
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
     if(selection == 0){  
@@ -239,6 +249,8 @@ void draw(){
       text("Placing: Osmium",470,690);
     }else if(selection == 9){  
       text("Placing: Uranium",470,690);
+    }else if(selection == 10){  
+      text("Placing: Gold",470,690);
     }
     textSize(25);
     text(framerate + " FPS",910,25);
@@ -290,10 +302,7 @@ void keyPressed(){
       }
     }
     if(key == '+' || key == '='){
-      textSize(69);
-      text("Taking Screenshot...",100,450);
-      textSize(36);
-      takeScreenshot();
+      save(filePath() + "screenshots/screenshot-" + (frameruleCounter * 5 + framecounter * (preset + 4) * 17) + ".png");
     }
     if(key == '}' || key == ']'){
       textSize(30);
@@ -349,39 +358,31 @@ void keyPressed(){
           map[xpos + (width/xFOV/2)][ypos + (height/xFOV/2)][zpos] = 7;
           if(objectValue == 8){
             inventory[4]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
           }
           if(objectValue == 9){
             inventory[5]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
           }
           if(objectValue == 10){
             inventory[6]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
           }
           if(objectValue == 13){
             inventory[7]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
           }
           if(objectValue == 14){
             inventory[8]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
           }
           if(objectValue == 15){
             inventory[9]++;
-            objectxpos[currentObjectID] = 0;
-            objectypos[currentObjectID] = 0;
-            objectvalue[currentObjectID] = 0;
+            objects[currentObjectID].delete();
+          }
+          if(objectValue == 16){
+            inventory[10]++;
+            objects[currentObjectID].delete();
           }
         }
       }

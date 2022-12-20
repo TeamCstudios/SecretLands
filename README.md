@@ -6,6 +6,30 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.5.0
+##### Dynamic Map Changes:
+- Ice will now thaw all across the map.
+- Forests will now regrow after they've been chopped down, but only if they are cut down sustainably.
+##### World Manipulation:
+- Apples can now be grown by placing down Osmium blocks in Forests.
+- Cacti can be destroyed by placing Uranium blocks next to them.
+##### Gold:
+- Added Gold Ore, which can spawn on every layer.
+- Added Gold Item and Gold Blocks
+- Gold currently does not have any uses except causing Siegers to despawn when they steal a Gold block
+##### Other Additions:
+- Added the /fill command, with the syntax `/fill <x1> <y1> <x2> <y2> <z> <value>`.
+##### Tweaking:
+- Gave armor-hearts invinicibility frames.
+- Made mobs move and attack twice as fast on the Lunatic difficulty.
+##### Internal Improvements:
+- Improved the framerate massively by...
+- ...converting mobs and objects into a more efficient object-oriented programming based format.
+- Removed the laggy and complicated screenshot function in favor of a simple one
+- Update the entire save system to make it more compact and less complex.
+- File sizes of all save files are reduced by over 25%. #9 isn't *quite* fixed, but we're getting there.
+##### Fixes:
+- Fixed a crash caused by inputting invalid commands.
 #### v1.4.1
 - Fixed a tuning bug that prevented mobs from spawning on Easy, Normal, and Hard difficulties.
 #### v1.4.0

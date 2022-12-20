@@ -83,12 +83,12 @@ void checkDeath(){
 }
 
 void doDamage(){
-  if(armor > 0){
-    armor--;
-  }else{
-    if((frameCount - lastDamageFrame) > ((4-difficulty)*2 + 2)){
+  if((frameCount - lastDamageFrame) > ((4-difficulty)*2 + 2)){
+    if(armor > 0){
+      armor--;
+    }else{
       health--;
-      lastDamageFrame = frameCount;
     }
+    lastDamageFrame = frameCount;
   }
 }

@@ -1,77 +1,66 @@
 void saveWorld(){
-  String[] save = new String[mapSize * 1000];
-  for(int i = 0; i < save.length / 1000; i++){
-    for(int j = 0; j < 1000; j++){
-      save[i * 1000 + j] = "" + map[i][j][0];
-    }
-  }
-  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-0.slsav", save);
-  save = new String[mapSize * 1000];
-  for(int i = 0; i < save.length / 1000; i++){
-    for(int j = 0; j < 1000; j++){
-      save[i * 1000 + j] = "" + map[i][j][1];
-    }
-  }
-  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-1.slsav", save);
-  save = new String[mapSize * 1000];
-  for(int i = 0; i < save.length / 1000; i++){
-    for(int j = 0; j < 1000; j++){
-      save[i * 1000 + j] = "" + map[i][j][2];
-    }
-  }
-  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-2.slsav", save);
-  save = new String[mapSize * 1000];
-  for(int i = 0; i < save.length / 1000; i++){
-    for(int j = 0; j < 1000; j++){
-      save[i * 1000 + j] = "" + map[i][j][3];
-    }
-  }
-  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + "-3.slsav", save);
-  String[] save2 = new String[objCap * 4 + mobCap * 5 + inventory.length + 17];
+  compressMap(map);
+  String[] save2 = new String[objCap + mobCap + inventory.length + 17];
   for(int i = 0; i < save2.length - 8; i++){
     if(i < objCap){
-      save2[i] = "" + objectxpos[i % objCap];
-    } else if(i < objCap * 2){
-      save2[i] = "" + objectypos[i % objCap];
-    } else if(i < objCap * 3){
-      save2[i] = "" + objectzpos[i % objCap];
-    } else if(i < objCap * 4){
-      save2[i] = "" + objectvalue[i % objCap];
-    } else if(i < objCap * 4 + mobCap){
-      save2[i] = "" + mobxpos[i % mobCap];
-    } else if(i < objCap * 4 + mobCap * 2){
-      save2[i] = "" + mobypos[i % mobCap];
-    } else if(i < objCap * 4 + mobCap * 3){
-      save2[i] = "" + mobzpos[i % mobCap];
-    } else if(i < objCap * 4 + mobCap * 4){
-      save2[i] = "" + mobvalue[i % mobCap];
-    } else if(i < objCap * 4 + mobCap * 5){
-      save2[i] = "" + mobhealth[i % mobCap];
-    } else if(i < objCap * 4 + mobCap * 5 + inventory.length){
-      save2[i] = "" + inventory[i - objCap * 4 - mobCap * 5];
+      save2[i] = objects[i].returnObjectDataAsString();
+    } else if(i < objCap + mobCap){
+      save2[i] = mobs[i - objCap].returnMobDataAsString();
+    } else if(i < objCap + mobCap + inventory.length){
+      save2[i] = "" + inventory[i - objCap - mobCap];
     }else{
-      save2[objCap * 4 + mobCap * 5 + inventory.length] = "" + xpos;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 1] = "" + ypos;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 2] = "" + zpos;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 3] = "" + xm;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 4] = "" + ym;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 5] = "" + health;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 6] = "" + cSpeed;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 7] = "" + playerColor;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 8] = "" + countdown;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 9] = "" + attackPower;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 10] = "" + armor;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 11] = "" + armorPower;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 12] = "" + tX;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 13] = "" + tY;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 14] = "" + tState;
-      save2[objCap * 4 + mobCap * 5 + inventory.length + 15] = "" + difficulty;
-      save2[objCap * 4  + mobCap * 5 + inventory.length + 16] = worldName;
+      save2[objCap + mobCap + inventory.length] = "" + xpos;
+      save2[objCap + mobCap + inventory.length + 1] = "" + ypos;
+      save2[objCap + mobCap + inventory.length + 2] = "" + zpos;
+      save2[objCap + mobCap + inventory.length + 3] = "" + xm;
+      save2[objCap + mobCap + inventory.length + 4] = "" + ym;
+      save2[objCap + mobCap + inventory.length + 5] = "" + health;
+      save2[objCap + mobCap + inventory.length + 6] = "" + cSpeed;
+      save2[objCap + mobCap + inventory.length + 7] = "" + playerColor;
+      save2[objCap + mobCap + inventory.length + 8] = "" + countdown;
+      save2[objCap + mobCap + inventory.length + 9] = "" + attackPower;
+      save2[objCap + mobCap + inventory.length + 10] = "" + armor;
+      save2[objCap + mobCap + inventory.length + 11] = "" + armorPower;
+      save2[objCap + mobCap + inventory.length + 12] = "" + tX;
+      save2[objCap + mobCap + inventory.length + 13] = "" + tY;
+      save2[objCap + mobCap + inventory.length + 14] = "" + tState;
+      save2[objCap + mobCap + inventory.length + 15] = "" + difficulty;
+      save2[objCap  + mobCap + inventory.length + 16] = worldName;
     }
   }
   saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".sldat", save2);
 }
 
+void compressMap(int[][][] xmap) {
+  StringBuilder sb = new StringBuilder();
+  for (int i = 0; i < xmap.length; i++) {
+    for (int j = 0; j < xmap[i].length; j++) {
+      for (int k = 0; k < xmap[i][j].length; k++) {
+        sb.append(xmap[i][j][k]);
+        sb.append(" ");
+      }
+      sb.append("\n");
+    }
+  }
+  String[] xz = (sb.toString()).split("\n");
+  saveStrings(filePath() + "saves/" + worldName + "-" + verCode + "/" + worldName + "-" + verCode + ".slsav2",xz);
+}
+
+void decompressMap(String filePath) {
+  String[] xz = loadStrings(filePath);
+  String[] lz;
+  int idx = 0;
+  for (int i = 0; i < map.length; i++) {
+    for (int j = 0; j < map[i].length; j++) {
+      lz = xz[idx].split(" ");
+      for (int k = 0; k < map[i][j].length; k++) {
+        map[i][j][k] = Integer.parseInt(lz[k]);
+        
+      }
+      idx++;
+    }
+  }
+}
 void loadWorldFull(){
   loadWorld();
   if(textEntry != ""){
@@ -84,77 +73,38 @@ void loadWorldFull(){
 
 void loadWorld(){
   String[] worldsave;
-  String[] worldsave1;
-  String[] worldsave2;
-  String[] worldsave3;
   String[] datasave;
-  worldsave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-0.slsav");
-  worldsave1 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-1.slsav");
-  worldsave2 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-2.slsav");
-  worldsave3 = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + "-3.slsav");
+  worldsave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".slsav2");
   datasave = loadStrings(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".sldat");
   if(worldsave == null || datasave == null){
     textEntry = "";
   }else{
-    for(int i = 0; i < worldsave.length / 1000; i++){
-      for(int j = 0; j < 1000; j++){
-        map[j][i][0] = int(worldsave[j + i * 1000]);
-      }
-    }
-    for(int i = 0; i < worldsave1.length / 1000; i++){
-      for(int j = 0; j < 1000; j++){
-        map[j][i][1] = int(worldsave1[j + i * 1000]);
-      }
-    }
-    for(int i = 0; i < worldsave2.length / 1000; i++){
-      for(int j = 0; j < 1000; j++){
-        map[j][i][2] = int(worldsave2[j + i * 1000]);
-      }
-    }
-    for(int i = 0; i < worldsave3.length / 1000; i++){
-      for(int j = 0; j < 1000; j++){
-        map[j][i][3] = int(worldsave3[j + i * 1000]);
-      }
-    }
+    decompressMap(filePath() + "saves/" + textEntry +  "-" + verCode + "/" + textEntry + "-" + verCode + ".slsav2");
     for(int i = 0; i < datasave.length - 8; i++){
       if(i < objCap){
-        objectxpos[i] = int(datasave[i]);
-      } else if(i < objCap * 2){
-        objectypos[i % objCap] = int(datasave[i]);
-      } else if(i < objCap * 3){
-        objectzpos[i % objCap] = int(datasave[i]);
-      } else if(i < objCap * 4){
-        objectvalue[i % objCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap){
-        mobxpos[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap * 2){
-        mobypos[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap * 3){
-        mobzpos[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap * 4){
-        mobvalue[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap * 5){
-        mobhealth[i % mobCap] = int(datasave[i]);
-      } else if(i < objCap * 4 + mobCap * 5 + inventory.length){
-        inventory[i - objCap * 4 - mobCap * 5] = int(datasave[i]);
+        objects[i] = new Object(datasave[i]);
+      } else if(i < objCap + mobCap){
+        mobs[i - objCap] = new Mob(datasave[i]);
+      } else if(i < objCap + mobCap + inventory.length){
+        inventory[i - objCap - mobCap] = int(datasave[i]);
       } else{
-        xpos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length]);
-        ypos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 1]);
-        zpos = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 2]);
-        xm = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 3]);
-        ym = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 4]);
-        health = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 5]);
-        cSpeed = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 6]);
-        playerColor = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 7]);
-        countdown = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 8]);
-        attackPower = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 9]);
-        armor = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 10]);
-        armorPower = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
-        tX = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 11]);
-        tY = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 12]);
-        tState = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 14]);
-        difficulty = int(datasave[objCap * 4 + mobCap * 5 + inventory.length + 15]);
-        worldName = datasave[objCap * 4 + mobCap * 5 + inventory.length + 16];
+        xpos = int(datasave[objCap + mobCap + inventory.length]);
+        ypos = int(datasave[objCap + mobCap + inventory.length + 1]);
+        zpos = int(datasave[objCap + mobCap + inventory.length + 2]);
+        xm = int(datasave[objCap + mobCap + inventory.length + 3]);
+        ym = int(datasave[objCap + mobCap + inventory.length + 4]);
+        health = int(datasave[objCap + mobCap + inventory.length + 5]);
+        cSpeed = int(datasave[objCap + mobCap + inventory.length + 6]);
+        playerColor = int(datasave[objCap + mobCap + inventory.length + 7]);
+        countdown = int(datasave[objCap + mobCap + inventory.length + 8]);
+        attackPower = int(datasave[objCap + mobCap + inventory.length + 9]);
+        armor = int(datasave[objCap + mobCap + inventory.length + 10]);
+        armorPower = int(datasave[objCap + mobCap + inventory.length + 11]);
+        tX = int(datasave[objCap + mobCap + inventory.length + 11]);
+        tY = int(datasave[objCap + mobCap + inventory.length + 12]);
+        tState = int(datasave[objCap + mobCap + inventory.length + 14]);
+        difficulty = int(datasave[objCap + mobCap + inventory.length + 15]);
+        worldName = datasave[objCap + mobCap + inventory.length + 16];
         i++;
       }
     }

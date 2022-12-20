@@ -1,67 +1,134 @@
 final int objCap = 3420;
-int[] objectxpos = new int[objCap];
-int[] objectypos = new int[objCap];
-int[] objectzpos = new int[objCap];
-int[] objectvalue = new int[objCap];
+Object[] objects = new Object[objCap];
+
+/* 
+Object IDs
+
+1: 
+*/
+public class Object{
+  private int ox;private int oy;private int oz;private int oval;private boolean isActive;
+  public Object(int xp,int yp,int zp,int val){
+    ox=xp;
+    oy=yp;
+    oz=zp;
+    oval=val;
+    isActive=true;
+  }
+  public Object(boolean g){
+    if(!g){
+      ox=0;oy=0;oz=0;oval=0;isActive=false;
+    }
+  }
+  void delete(){
+    isActive=false;
+    ox=0;oy=0;oz=0;oval=0;
+  }
+  boolean isActive(){
+    return isActive;
+  }
+  int getX(){
+    return ox;
+  }
+  int getY(){
+    return oy;
+  }
+  int getZ(){
+    return oz;
+  }
+  int getVal(){
+    return oval;
+  }
+  void setX(int xp){
+    ox=xp;
+  }
+  void setY(int yp){
+    oy=yp;
+  }
+  void setZ(int zp){
+    oz=zp;
+  }
+  void setVal(int val){
+    oval=val;
+  }
+  String returnObjectDataAsString(){
+    return ox + "," + oy + "," + oz + "," + oval;
+  }
+  public Object(String dataString){
+    String[] data = dataString.split(",");
+    ox = Integer.parseInt(data[0]);
+    oy = Integer.parseInt(data[1]);
+    oz = Integer.parseInt(data[2]);
+    oval = Integer.parseInt(data[3]);
+  }
+}
+
+void initializeObjects(){
+  for(int o = 0; o < objCap; o++){
+    objects[o] = new Object(false);
+  }
+}
 
 void drawObjects(){
   for(int o = 0; o < objCap; o++){
-    if(!(abs(objectxpos[o] - xpos) > (width / (xFOV/2)) || abs(objectypos[o] - ypos) > (height / xFOV) || objectzpos[o] != zpos) || objectvalue[o] == 11 && abs(objectzpos[o] - zpos) <= 1){
+    if(!(abs(objects[o].getX() - xpos) > (width / (xFOV/2)) || abs(objects[o].getY() - ypos) > (height / xFOV) || objects[o].getZ() != zpos) || objects[o].getVal() == 11 && abs(objects[o].getZ() - zpos) <= 1){
       for(int i = 0; i < (width / xFOV); i++){for(int j = 0; j < (height / xFOV); j++){
-        if(objectxpos[o] == xpos+i && objectypos[o] == ypos+j){
+        if(objects[o].getX() == xpos+i && objects[o].getY() == ypos+j){
           ellipseMode(CORNER);
-          if(objectvalue[o] == 1){
+          if(objects[o].getVal() == 1){
             fill(50,50,200);
-          } else if(objectvalue[o] == 2){
+          } else if(objects[o].getVal() == 2){
             fill(150,255,150);
-          } else if(objectvalue[o] == -1){
+          } else if(objects[o].getVal() == -1){
             fill(117,16,163);
-          } else if(objectvalue[o] == 3){
+          } else if(objects[o].getVal() == 3){
             fill(50,100,50);
-          } else if(objectvalue[o] == 4){
+          } else if(objects[o].getVal() == 4){
             fill(200,215,255);
-          } else if(objectvalue[o] == 5){
+          } else if(objects[o].getVal() == 5){
             fill(0,255,255);
-          } else if(objectvalue[o] == 6){
+          } else if(objects[o].getVal() == 6){
             fill(200,0,0);
-          } else if(objectvalue[o] == 7){
+          } else if(objects[o].getVal() == 7){
             fill(0,150,0);
-          } else if(objectvalue[o] == 8){
+          } else if(objects[o].getVal() == 8){
             fill(0);
-          } else if(objectvalue[o] == 9){
+          } else if(objects[o].getVal() == 9){
             fill(232,142,81);
-          } else if(objectvalue[o] == 10){
+          } else if(objects[o].getVal() == 10){
             fill(171,138,116);
-          } else if(objectvalue[o] == 11){
+          } else if(objects[o].getVal() == 11){
             fill(60);
-          } else if(objectvalue[o] == 13){
+          } else if(objects[o].getVal() == 13){
             fill(155,185,145);
-          } else if(objectvalue[o] == 14){
+          } else if(objects[o].getVal() == 14){
             fill(58,80,120);
-          } else if(objectvalue[o] == 15){
+          } else if(objects[o].getVal() == 15){
             fill(117,255,48);
+          } else if(objects[o].getVal() == 16){
+            fill(237,237,40);
           } else {
             noFill();
           }
-          if(i == (width/xFOV/2) && j == (height/xFOV/2) && objectvalue[o] != 0){
-            objectValue = objectvalue[o];
+          if(i == (width/xFOV/2) && j == (height/xFOV/2) && objects[o].getVal() != 0){
+            objectValue = objects[o].getVal();
             currentObjectID = o;
           } else {  
-            if(objectvalue[o] < 6){
+            if(objects[o].getVal() < 6){
               ellipse(i * xFOV,j * xFOV,xFOV,xFOV);
-            }else if(objectvalue[o] == 6){
+            }else if(objects[o].getVal() == 6){
               rect(i * xFOV + 2,j * xFOV + 2,xFOV - 4,xFOV - 4);
-            }else if(objectvalue[o] == 7){
+            }else if(objects[o].getVal() == 7){
               rect(i * xFOV + 1,j * xFOV + 1,xFOV - 2,xFOV - 2);
-            }else if((objectvalue[o] > 7 && objectvalue[o] < 11) || (objectvalue[o] > 12 && objectvalue[o] < 16)){
-              rect(i * xFOV + objectxpos[o] % 6 + 1,j * xFOV + objectypos[o] % 5 + objectxpos[o] % 2,2,2);
-              rect(i * xFOV + objectypos[o] % 5 + objectxpos[o] % 3,j * xFOV + objectxpos[o] % 6 + objectxpos[o] % 3,2,2);
-              rect(i * xFOV + objectxpos[o] % 5 + objectypos[o] % 2,j * xFOV + objectypos[o] % 5 + 1,2,2);
-              rect(i * xFOV + objectypos[o] % 5 + 3,j * xFOV + objectxpos[o] % 5 + 1,2,2);
+            }else if((objects[o].getVal() > 7 && objects[o].getVal() < 11) || (objects[o].getVal() > 12 && objects[o].getVal() < 17)){
+              rect(i * xFOV + objects[o].getX() % 6 + 1,j * xFOV + objects[o].getY() % 5 + objects[o].getX() % 2,2,2);
+              rect(i * xFOV + objects[o].getY() % 5 + objects[o].getX() % 3,j * xFOV + objects[o].getX() % 6 + objects[o].getX() % 3,2,2);
+              rect(i * xFOV + objects[o].getX() % 5 + objects[o].getY() % 2,j * xFOV + objects[o].getY() % 5 + 1,2,2);
+              rect(i * xFOV + objects[o].getY() % 5 + 3,j * xFOV + objects[o].getX() % 5 + 1,2,2);
               rect(i * xFOV + 5,j * xFOV + 5,2,2);
               rect(i * xFOV + 1,j * xFOV + 1,2,2);
               rect(i * xFOV + xFOV - 2,j * xFOV + xFOV - 2,2,2);
-            }else if(objectvalue[o] == 11){
+            }else if(objects[o].getVal() == 11){
               stroke(0);
               rect(i * xFOV + 1,j * xFOV + 1,xFOV - 2,xFOV - 2);
               noStroke();
@@ -75,324 +142,208 @@ void drawObjects(){
 
 void createSpecificObject(int x,int y,int z,int value){
   for(int i = 0; i < objCap; i++){
-    if(objectvalue[i] == 0){
-      objectxpos[i] = x;
-      objectypos[i] = y;
-      objectzpos[i] = z;
-      objectvalue[i] = value;
+    if(!objects[i].isActive()){
+      objects[i] = new Object(x,y,z,value);
+      break;
     }
   }
 }
 
 void createObjects(){
   int loopEsc = 0;
-  int stX;
-  int stY;
-  for(int i = 0; i < 7; i++){
-    stX = int(random(mapSize - 200) + 100);
-    stY = int(random(mapSize - 200) + 100);
-    loopEsc = 0;
-    while(!(map[stX][stY][1] == 7 || map[stX][stY][1] == 6 && map[stX][stY + 7][2] == 7)){
-      stX = int(random(mapSize - 200) + 100);
-      stY = int(random(mapSize - 200) + 100);
-      loopEsc++;
-      if(loopEsc > 100000){
-        break;
-      }
-    }
-    if(loopEsc < 100001){
-      generateLoweringDungeon(stX,stY,i);
-    }
-  }
-  for(int i = 0; i < 4; i++){
-    stX = int(random(mapSize - 200) + 100);
-    stY = int(random(mapSize - 200) + 100);
-    loopEsc = 0;
-    while(!(map[stX][stY][2] == 7 || map[stX][stY][2] == 6 && map[stX][stY + 7][3] == 7)){
-      stX = int(random(mapSize - 200) + 100);
-      stY = int(random(mapSize - 200) + 100);
-      loopEsc++;
-      if(loopEsc > 100000){
-        break;
-      }
-    }
-    if(loopEsc < 100001){
-      generateLoweringDungeon2(stX,stY,i+7);
-    }
-  }
-  tX = int(random(mapSize - 200) + 100);
-  tY = int(random(mapSize - 200) + 100);
-  loopEsc = 0;
-  while(!(map[tX][tY][0] == 8 || map[tX][tY][0] == 9)){
-    tX = int(random(mapSize - 200) + 100);
-    tY = int(random(mapSize - 200) + 100);
-    loopEsc++;
-    if(loopEsc > 100000){
-      break;
-    }
-  }
-  if(loopEsc < 100001){
-    generateTemple();
-  }
-  for(int i = 0; i < 5; i++){
-    stX = int(random(mapSize - 200) + 100);
-    stY = int(random(mapSize - 200) + 100);
-    loopEsc = 0;
-    while(!(map[stX][stY][0] == 16)){
-      stX = int(random(mapSize - 200) + 100);
-      stY = int(random(mapSize - 200) + 100);
-      loopEsc++;
-      if(loopEsc > 100000){
-        break;
-      }
-    }
-    if(loopEsc < 100001){
-      if(loopEsc % 2 == 0){
-        loadSchematic("oceanruin1",stX,stY,0);
-      }else{
-        loadSchematic("oceanruin2",stX,stY,0);
-      }
-    }
-  }
-  for(int i = 0; i < 4; i++){
-    stX = int(random(mapSize - 200) + 100);
-    stY = int(random(mapSize - 200) + 100);
-    loopEsc = 0;
-    while(!(map[stX][stY][0] == 8 || map[stX][stY][0] == 9)){
-      stX = int(random(mapSize - 200) + 100);
-      stY = int(random(mapSize - 200) + 100);
-      loopEsc++;
-      if(loopEsc > 100000){
-        break;
-      }
-    }
-    if(loopEsc < 100001){
-      if(loopEsc % 7 == 5){
-        loadSchematic("castlebaseruined",stX,stY,0);
-      }else{
-        loadSchematic("castlebase",stX,stY,0);
-      }
-    }
-  }
-  for(int i = 0; i < 2; i++){
-    stX = int(random(mapSize - 200) + 100);
-    stY = int(random(mapSize - 200) + 100);
-    loopEsc = 0;
-    while(!(map[stX][stY][0] > 1 && map[stX][stY][0] < 8 && map[stX+40][stY+40][0] > 1 && map[stX+40][stY+40][0] < 8)){
-      stX = int(random(mapSize - 200) + 100);
-      stY = int(random(mapSize - 200) + 100);
-      loopEsc++;
-      if(loopEsc > 100000){
-        break;
-      }
-    }
-    if(loopEsc < 100001){
-      loadSchematic("mountainbastion",stX,stY,0);
-    }
-  }
-  stX = int(random(mapSize - 200) + 100);
-  stY = int(random(mapSize - 200) + 100);
-  loadSchematic("grotto",stX,stY,2);
-  stX = int(random(mapSize - 200) + 100);
-  stY = int(random(mapSize - 200) + 100);
-  loadSchematic("grotto",stX,stY,2);
   for(int o = 0; o < objCap - 20; o++){
-    objectxpos[o] = int(random(mapSize - 50) + 25);
-    objectypos[o] = int(random(mapSize - 50) + 25);
+    objects[o].setX(int(random(mapSize - 50) + 25));
+    objects[o].setY(int(random(mapSize - 50) + 25));
     loopEsc = 0;
-    while(map[objectxpos[o]][objectypos[o]][0] == 1 || map[objectxpos[o]][objectypos[o]][0] == 17){
-      objectxpos[o] = int(random(mapSize - 50) + 25);
-      objectypos[o] = int(random(mapSize - 50) + 25);
+    while(map[objects[o].getX()][objects[o].getY()][0] == 1 || map[objects[o].getX()][objects[o].getY()][0] == 17){
+      objects[o].setX(int(random(mapSize - 50) + 25));
+      objects[o].setY(int(random(mapSize - 50) + 25));
       loopEsc++;
       if(loopEsc > 1000){
-        objectvalue[o] = 0;
+        objects[o].delete();
         break;
       }
     }
-    objectvalue[o] = int(random(1,8.5));
+    objects[o].setVal(int(random(1,8.5)));
     float randa = random(1);
     float randb = random(1);
     if(randa > .7){
       if(randb < .1){
-        objectvalue[o] = 5;
+        objects[o].setVal(5);
       }else if(randb < .3){
-        objectvalue[o] = 1;
+        objects[o].setVal(1);
       }else if(randb < .6){
-        objectvalue[o] = 3;
+        objects[o].setVal(3);
       }else if(randb < .9){
-        objectvalue[o] = 2;
+        objects[o].setVal(2);
       }else{
-        objectvalue[o] = 4;
+        objects[o].setVal(4);
       }
     }else if (randa > .2){
       if(randb < .2){
-        objectvalue[o] = 6;
+        objects[o].setVal(6);
       }else if(randb < .4){
-        objectvalue[o] = 7;
+        objects[o].setVal(7);
       }else if(randb < .65){
-        objectvalue[o] = 8;
+        objects[o].setVal(8);
       }else if(randb < .85){
-        objectvalue[o] = 9;
+        objects[o].setVal(9);
       }else if(randb < .95){
-        objectvalue[o] = 10;
+        objects[o].setVal(10);
       }else{
-        objectvalue[o] = 11;
+        objects[o].setVal(11);
       }
     }else{
       if(randb < .3){
-        objectvalue[o] = 14;
-      }else if(randb < .8){
-        objectvalue[o] = 13;
+        objects[o].setVal(14);
+      }else if(randb < .75){
+        objects[o].setVal(13);
+      }else if(randb < .85){
+        objects[o].setVal(16);
       }else{
-        objectvalue[o] = 15;
+        objects[o].setVal(15);
       }
     }    
-    if(objectvalue[o] == 6){
+    if(objects[o].getVal() == 6){
       loopEsc = 0;
-      while(!(map[objectxpos[o]][objectypos[o]][0] == 14)){
-        objectxpos[o] = int(random(mapSize));
-        objectypos[o] = int(random(mapSize));
+      while(!(map[objects[o].getX()][objects[o].getY()][0] == 14)){
+        objects[o].setX(int(random(mapSize)));
+        objects[o].setY(int(random(mapSize)));
         loopEsc++;
         if(loopEsc > 1000){
-          objectvalue[o] = 0;
+          objects[o].delete();
           break;
         }
       }
     }
-    if(objectvalue[o] == 7){
+    if(objects[o].getVal() == 7){
       loopEsc = 0;
-      while(!(map[objectxpos[o]][objectypos[o]][0] == 10)){
-        objectxpos[o] = int(random(mapSize));
-        objectypos[o] = int(random(mapSize));
+      while(!(map[objects[o].getX()][objects[o].getY()][0] == 10)){
+        objects[o].setX(int(random(mapSize)));
+        objects[o].setY(int(random(mapSize)));
         loopEsc++;
         if(loopEsc > 1000){
-          objectvalue[o] = 0;
+          objects[o].delete();
           break;
         }
       }
     }
-    if(objectvalue[o] == 8){
+    if(objects[o].getVal() == 8){
       loopEsc = 0;
-      while(!(map[objectxpos[o]][objectypos[o]][0] == 6)){
-        objectxpos[o] = int(random(mapSize));
-        objectypos[o] = int(random(mapSize));
+      while(!(map[objects[o].getX()][objects[o].getY()][0] == 6)){
+        objects[o].setX(int(random(mapSize)));
+        objects[o].setY(int(random(mapSize)));
         loopEsc++;
         if(loopEsc > 1000){
-          objectvalue[o] = 0;
+          objects[o].delete();
           break;
         }
       }
     }
-    if(objectvalue[o] > 8){
-      while(!(map[objectxpos[o]][objectypos[o]][1] == 6)){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+    if(objects[o].getVal() > 8){
+      while(!(map[objects[o].getX()][objects[o].getY()][1] == 6)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
       }
     }
-    if(objectvalue[o] > 12 && objectvalue[o] < 15){
-      while(!(map[objectxpos[o]][objectypos[o]][2] == 6)){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+    if(objects[o].getVal() > 12 && objects[o].getVal() < 15){
+      while(!(map[objects[o].getX()][objects[o].getY()][2] == 6)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
       }
     }
-    if(objectvalue[o] == 15){
-      while(!(map[objectxpos[o]][objectypos[o]][3] == 6)){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+    if(objects[o].getVal() == 15){
+      while(!(map[objects[o].getX()][objects[o].getY()][3] == 6)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
       }
     }
-    if(objectvalue[o] == 11){
-      while(!(map[objectxpos[o]][objectypos[o]][1] == 7 && (map[objectxpos[o]][objectypos[o]][0] == 6 || map[objectxpos[o]][objectypos[o]][0] == 7))){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+    if(objects[o].getVal() == 16){
+      while(!(map[objects[o].getX()][objects[o].getY()][objects[o].getZ()] == 6)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
+          objects[o].setZ(int(random(0,3.7)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
       }
     }
-    if(objectvalue[o] == 3){
+    if(objects[o].getVal() == 11){
+      while(!(map[objects[o].getX()][objects[o].getY()][1] == 7 && (map[objects[o].getX()][objects[o].getY()][0] == 6 || map[objects[o].getX()][objects[o].getY()][0] == 7))){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
+          loopEsc++;
+          if(loopEsc > 1000){
+            objects[o].delete();
+            break;
+          }
+      }
+    }
+    if(objects[o].getVal() == 3){
       if(random(1) > .45){
-        objectzpos[o] = 0;
+        objects[o].setZ(0);
       }else{
-        objectzpos[o] = 1;
-        while(!(map[objectxpos[o]][objectypos[o]][1] == 7)){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+        objects[o].setZ(1);
+        while(!(map[objects[o].getX()][objects[o].getY()][1] == 7)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
         }
       }
-    }else if(objectvalue[o] < 8 || objectvalue[o] == 11){
-      objectzpos[o] = 0;
-    }else if(objectvalue[o] == 8){
+    }else if(objects[o].getVal() < 8 || objects[o].getVal() == 11){
+      objects[o].setZ(0);
+    }else if(objects[o].getVal() == 8){
       if(random(1) > .55){
-        objectzpos[o] = 0;
+        objects[o].setZ(0);
       }else{
-        objectzpos[o] = 1;
-        while(!(map[objectxpos[o]][objectypos[o]][1] == 6)){
-          objectxpos[o] = int(random(mapSize));
-          objectypos[o] = int(random(mapSize));
+        objects[o].setZ(1);
+        while(!(map[objects[o].getX()][objects[o].getY()][1] == 6)){
+          objects[o].setX(int(random(mapSize)));
+          objects[o].setY(int(random(mapSize)));
           loopEsc++;
           if(loopEsc > 1000){
-            objectvalue[o] = 0;
+            objects[o].delete();
             break;
           }
         }
       }
-    }else if(objectvalue[o] > 8 && objectvalue[o] < 11){
-      objectzpos[o] = 1;
-    }else if(objectvalue[o] > 12 && objectvalue[o] < 15){
-      objectzpos[o] = 2;
-    }else if(objectvalue[o] == 15){
-      objectzpos[o] = 3;
+    }else if(objects[o].getVal() > 8 && objects[o].getVal() < 11){
+      objects[o].setZ(1);
+    }else if(objects[o].getVal() > 12 && objects[o].getVal() < 15){
+      objects[o].setZ(2);
+    }else if(objects[o].getVal() == 15){
+      objects[o].setZ(3);
     }
   }
 }
 
-void generateTemple(){
-  loadSchematic("temple",tX-1,tY-1,1);
-  objectxpos[objCap - 9] = tX + 1;
-  objectypos[objCap - 9] = tY + 1;
-  objectzpos[objCap - 9] = 1;
-  objectvalue[objCap - 9] = 12;
-  objectxpos[objCap - 8] = tX;
-  objectypos[objCap - 8] = tY;
-  objectzpos[objCap - 8] = 1;
-  objectvalue[objCap - 8] = 11;
-}
-
-void generateLoweringDungeon(int stX, int stY, int inc){
-  loadSchematic("lowering",stX-6,stY,1);
-  objectxpos[objCap - 10 - inc] = stX - 1;
-  objectypos[objCap - 10 - inc] = stY + 5;
-  objectzpos[objCap - 10 - inc] = 2;
-  objectvalue[objCap - 10 - inc] = 11;
-}
-
-void generateLoweringDungeon2(int stX, int stY, int inc){
-  loadSchematic("lowering2",stX-5,stY,2);
-  objectxpos[objCap - 10 - inc] = stX - 1;
-  objectypos[objCap - 10 - inc] = stY + 4;
-  objectzpos[objCap - 10 - inc] = 3;
-  objectvalue[objCap - 10 - inc] = 11;
+void killCacti(){
+  for(int i = 0; i < objCap; i++){
+    if(objects[i].getVal() == 7 && objects[i].getZ() == 0){
+      if(evaluateSurroundings(-9,objects[i].getX(),objects[i].getY(),0) > 0.0){
+        objects[i].delete();
+      }
+    }
+  }
 }

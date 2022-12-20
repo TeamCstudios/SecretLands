@@ -13,7 +13,8 @@ Inventory:
 7: Tin
 8: Osmium
 9: Uranium
-10-19:
+10: Gold
+11-19:
 20: Normal Form
 21: Swimmer Form
 22: Climber Form
@@ -46,9 +47,11 @@ void inventory(){
   text("Tin:",120,120);
   text("Osmium:",120,140);
   text("Uranium:",120,160);
+  text("Gold:",120,180);
   text("" + inventory[7],170,120);
   text("" + inventory[8],180,140);
   text("" + inventory[9],185,160);
+  text("" + inventory[10],175,180);
   text("Gel:",20,257);
   text("Green:",40,270);
   text("Blue:",40,285);
@@ -68,8 +71,8 @@ void inventory(){
     text("Passive Ability: Navigate shallow water.",500,130);
   }else if(playerColor == 3){
     text("Climber",500,110);
-    text("Passive Ability: Navigate mountains.",500,130);
-    text("Active Ability (E): Get stone from a mountain.",500,145);
+    text("Passive Ability: Navigate mountains or cave walls.",500,130);
+    text("Active Ability (E): Get stone from a mountain or cave.",500,145);
   }else if(playerColor == 4){
     text("Sprinter",500,110);
     text("Passive Ability: Double your speed.",500,130);
@@ -109,7 +112,10 @@ void inventory(){
   }else if(craftingSelection == 5){
     text("<- Craft Super Form ->",305,315);
     text("[10 Uranium, 5 Red, 15 Purple Gel]",305,340);
-  }
+  }/*else if(craftingSelection == 6){
+    text("<- Craft Golden Apple ->",305,315);
+    text("[1 Apple, 4 Gold]",305,340);
+  }*/
   if(attackPower == 1){
     text("Fists",305,515);
     text("[Upgrade: 100 Wood]",305,540);
@@ -256,8 +262,8 @@ void mouseClicked(){
       }
     }else if(attackPower == 9){
       if(inventory[6] > 14 && inventory[3] > 24 && inventory[9] > 4){
-        inventory[3]-=15;
-        inventory[6]-=25;
+        inventory[6]-=15;
+        inventory[3]-=25;
         inventory[9]-=5;
         attackPower = 10;
       }

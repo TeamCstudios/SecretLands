@@ -96,9 +96,225 @@ String parseCommand(String command){
     }else if(args[4].equals("-9") || args[4].equals("uranium-block")){
       map[int(args[1])][int(args[2])][int(args[3])] = -9;
       return "Set tile at (" + args[1] + "," + args[2] + "," + args[3] + ") to " + args[4];
+    }else if(args[4].equals("-10") || args[4].equals("gold-block")){
+      map[int(args[1])][int(args[2])][int(args[3])] = -10;
+      return "Set tile at (" + args[1] + "," + args[2] + "," + args[3] + ") to " + args[4];
     }else if(args[4].equals("-31") || args[4].equals("sandstone-block")){
       map[int(args[1])][int(args[2])][int(args[3])] = -31;
       return "Set tile at (" + args[1] + "," + args[2] + "," + args[3] + ") to " + args[4];
+    }else{
+      return "Error! Invalid tile type " + args[4];
+    }
+  }if(args[0].equals("fill")){
+    if(args.length > 7){
+      return "Too many arguments.";
+    }else if(args.length < 7){
+      return "Too few arguments.";
+    }
+    if(!(int(args[1]) > 0 && int(args[1]) < mapSize)){
+      return "Error: invalid fill selection (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ")";
+    }
+    if(!(int(args[2]) > 0 && int(args[2]) < mapSize)){
+      return "Error: invalid fill selection (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ")";
+    }
+    if(!(int(args[3]) > 0 && int(args[3]) < mapSize && int(args[3]) > int(args[1]))){
+      return "Error: invalid fill selection (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ")";
+    }
+    if(!(int(args[4]) > 0 && int(args[4]) < mapSize && int(args[4]) > int(args[2]))){
+      return "Error: invalid fill selection (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ")";
+    }
+    if(!(int(args[5]) > -1 && int(args[5]) < 4)){
+      return "Error: invalid fill selection (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ")";
+    }
+    if(args[6].equals("0") || args[6].equals("cave-barrier")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 0;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("1") || args[6].equals("lava")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 1;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("2") || args[6].equals("mountain-peak-a")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 2;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("3") || args[6].equals("mountain-peak-b")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 3;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("4") || args[6].equals("mountain-peak-c")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 4;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("5") || args[6].equals("mountain-a")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 5;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("6") || args[6].equals("mountain-b") || args[6].equals("cave-walls")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 6;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("7") || args[6].equals("foothills") || args[6].equals("cave-floor")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 7;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("8") || args[6].equals("grasslands")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 8;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("9") || args[6].equals("dark-grasslands")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 9;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("10") || args[6].equals("desert")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 10;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("11") || args[6].equals("desert-transition") || args[6].equals("beach")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 11;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("12") || args[6].equals("tundra")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 12;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("13") || args[6].equals("tundra-transition")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 13;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("14") || args[6].equals("forest")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 14;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("15") || args[6].equals("forest-transition")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 15;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("16") || args[6].equals("ocean")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 16;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("17") || args[6].equals("deep-ocean")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = 17;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-1") || args[6].equals("wood-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -1;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-2") || args[6].equals("stone-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -2;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-5") || args[6].equals("copper-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -5;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-6") || args[6].equals("iron-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -6;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-7") || args[6].equals("tin-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -7;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-8") || args[6].equals("osmium-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -8;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-9") || args[6].equals("uranium-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -9;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-10") || args[6].equals("gold-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -10;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
+    }else if(args[6].equals("-31") || args[6].equals("sandstone-block")){
+      for(int i = 0;i < (int(args[3]) - int(args[1]));i++){
+        for(int j = 0;j < (int(args[4]) - int(args[2]));j++){
+          map[int(args[1])+i][int(args[2])+j][int(args[5])] = -31;
+        }
+      }
+      return "Set selection at (" + args[1] + "," + args[2] + "," + args[5] + ")-(" + args[1] + "," + args[2] + "," + args[5] + ") to " + args[4];
     }else{
       return "Error! Invalid tile type " + args[4];
     }
@@ -198,6 +414,9 @@ String parseCommand(String command){
     }else if(args[4].equals("15") || args[4].equals("uranium-ore")){
       createSpecificObject(int(args[1]),int(args[2]),int(args[3]),15);
       return "Object successfully summoned.";
+    }else if(args[4].equals("16") || args[4].equals("gold-ore")){
+      createSpecificObject(int(args[1]),int(args[2]),int(args[3]),16);
+      return "Object successfully summoned.";
     }else{
       return "Error: invalid object identifier '" + args[4] + "'";
     }
@@ -274,7 +493,7 @@ String parseCommand(String command){
     }else if(args.length < 3){
       return "Too few arguments.";
     }
-    if(!((int(args[1]) > 0 && int(args[1]) < 10) || (int(args[1]) < 30 && int(args[1]) > 19))){
+    if(!((int(args[1]) > 0 && int(args[1]) < 11) || (int(args[1]) < 30 && int(args[1]) > 19))){
       return "Error: Invalid item ID " + args[1];
     }else if(!(int(args[2]) < 0 || int(args[2]) > 10000)){
       inventory[int(args[1])]+=int(args[2]);
@@ -345,5 +564,5 @@ String parseCommand(String command){
       return "Invalid argument: '" + args[1] + "'";
     }
   }
-  return null;
+  return "Invalid command.";
 }
