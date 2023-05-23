@@ -1,15 +1,13 @@
 float soundVolume = 1.0; Sound sound = new Sound(this);
-SoundFile music1; SoundFile music2; SoundFile music3; SoundFile music4; SoundFile music5; SoundFile music6; SoundFile music7; 
+SoundFile music1; SoundFile music2;SoundFile music3;SoundFile music4;SoundFile music5;SoundFile music6;SoundFile music7;
 void stopmusic(){
-  if(music1 != null){
-    music1.stop();
-    music2.stop();
-    music3.stop();
-    music4.stop();
-    music5.stop();
-    music6.stop();
-    music7.stop();
-  }
+  if(music1.isPlaying()){music1.stop();}
+  if(music2.isPlaying()){music2.stop();}
+  if(music3.isPlaying()){music3.stop();}
+  if(music4.isPlaying()){music4.stop();}
+  if(music5.isPlaying()){music5.stop();}
+  if(music6.isPlaying()){music6.stop();}
+  if(music7.isPlaying()){music7.stop();}
 }
 
 void wandering(){
@@ -77,65 +75,79 @@ void doPlayMusic(){
 }
 
 void lm1(){
-  music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering.mp3");
-  if(music1 != null){
+  music1 = new SoundFile(this,filePath() + "music/Safe.wav",false);
+  try{
+    music1.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/wandering.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Wandering.mp3", b);
-    music1 = new SoundFile(this,filePath() + "music/MrJoCrafter - Wandering.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/safe.wav");
+    saveBytes(filePath() + "music/Safe.wav", b);
+    music1 = new SoundFile(this,filePath() + "music/Safe.wav",false);
   }
 }
 void lm2(){
-  music2 = new SoundFile(this,filePath() + "music/Takijana - Flutter.mp3");
-  if(music2 != null){
+  music2 = new SoundFile(this,filePath() + "music/Triumphant.wav",false);
+  try{
+    music2.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/flutter.mp3");
-    saveBytes(filePath() + "music/Takijana - Flutter.mp3", b);
-    music2 = new SoundFile(this,filePath() + "music/Takijana - Flutter.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/triumphant.wav");
+    saveBytes(filePath() + "music/Triumphant.wav", b);
+    music2 = new SoundFile(this,filePath() + "music/Triumphant.wav",false);
   }
 }
 void lm3(){
-  music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Insane Slimes.mp3");
-  if(music3 != null){
+  music3 = new SoundFile(this,filePath() + "music/Funderar.wav",false);
+  try{
+    music3.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/insaneslimes.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Insane Slimes.mp3", b);
-    music3 = new SoundFile(this,filePath() + "music/MrJoCrafter - Insane Slimes.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/funderar.wav");
+    saveBytes(filePath() + "music/Funderar.wav", b);
+    music3 = new SoundFile(this,filePath() + "music/Funderar.wav",false);
   }
 }
 void lm4(){
-  music4 = new SoundFile(this,filePath() + "music/Takijana - Temple.mp3");
-  if(music4 != null){
+  music4 = new SoundFile(this,filePath() + "music/Enter the Depths.wav",false);
+  try{
+    music4.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/temple.mp3");
-    saveBytes(filePath() + "music/Takijana - Temple.mp3", b);
-    music4 = new SoundFile(this,filePath() + "music/Takijana - Temple.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/enter-the-depths.wav");
+    saveBytes(filePath() + "music/Enter the Depths.wav", b);
+    music4 = new SoundFile(this,filePath() + "music/Enter the Depths.wav",false);
   }
 }
 void lm5(){
-  music5 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
-  if(music5 != null){
+  music5 = new SoundFile(this,filePath() + "music/Mummy.wav",false);
+  try{
+    music5.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/arealthreat.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - A Real Threat.mp3", b);
-    music5 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/mummy.wav");
+    saveBytes(filePath() + "music/Mummy.wav", b);
+    music5 = new SoundFile(this,filePath() + "music/Mummy.wav",false);
   }
 }
 void lm6(){
-  music6 = new SoundFile(this,filePath() + "music/MrJoCrafter - A Real Threat.mp3");
-  if(music6 != null){
+  music6 = new SoundFile(this,filePath() + "music/Stalagmites and Stalactites.wav",false);
+  try{
+    music6.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/yetdeeper.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Yet Deeper.mp3", b);
-    music6 = new SoundFile(this,filePath() + "music/MrJoCrafter - Yet Deeper.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/stalagmites-and-stalactites.wav");
+    saveBytes(filePath() + "music/Stalagmites and Stalactites.wav", b);
+    music6 = new SoundFile(this,filePath() + "music/Stalagmites and Stalactites.wav",false);
   }
 }
 void lm7(){
-  music7 = new SoundFile(this,filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3");
-  if(music7 != null){
+  music7 = new SoundFile(this,filePath() + "music/Hypercurian.wav",false);
+  try{
+    music7.play();
+  }catch (NullPointerException e){
     byte b[];
-    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music2/icewatersrefrain.mp3");
-    saveBytes(filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3", b);
-    music7 = new SoundFile(this,filePath() + "music/MrJoCrafter - Ice Water's Refrain.mp3");
+    b = loadBytes("https://github.com/TeamCstudios/SecretLands/raw/master/music3/hypercurian.wav");
+    saveBytes(filePath() + "music/Hypercurian.wav", b);
+    music7 = new SoundFile(this,filePath() + "music/Hypercurian.wav",false);
   }
 }

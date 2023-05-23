@@ -337,13 +337,3 @@ void createObjects(){
     }
   }
 }
-
-void killCacti(){
-  for(int i = 0; i < objCap; i++){
-    if(objects[i].getVal() == 7 && objects[i].getZ() == 0){
-      if(evaluateSurroundings(-9,objects[i].getX(),objects[i].getY(),0) > 0.0){
-        objects[i].delete();
-      }
-    }
-  }
-}

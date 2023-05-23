@@ -10,29 +10,6 @@ void thawIce(int iterations){
   }
 }
 
-void regrowForest(int iterations){
-  int o;int p;
-  for(int i = 0; i < iterations; i++){
-    o = int(random(mapSize));
-    p = int(random(mapSize));
-    if((map[o][p][0] == 8 || map[o][p][0] == 9 || map[o][p][0] == 15)&& evaluateSurroundings(14,o,p,0) > 0.625){
-      map[o][p][0] = 14;
-      //System.out.println("Regrew Forest at ("+ o + "," + p + ",0).");
-    }
-  }
-}
-
-void growApples(int iterations){
-  int o;int p;
-  for(int i = 0; i < iterations; i++){
-    o = int(random(mapSize));
-    p = int(random(mapSize));
-    if(map[o][p][0] == 14 && evaluateSurroundings(-8,o,p,0) > 0.0){
-      createSpecificObject(o,p,0,6);
-    }
-  }
-}
-
 float evaluateSurroundings(int tileType, int x, int y, int z){
   float perc = 0.0;
   int[] surroundings = returnSurroundings(x,y,z);

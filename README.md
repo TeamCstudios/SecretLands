@@ -6,6 +6,16 @@ not reached yet!
 ### Beta
 not reached yet!
 ### Alpha
+#### v1.6.0
+##### World Events:
+- Added the World Events framework.
+- Added two new World Events, "Bountiful Harvest" and "Beta Heatwave". As of now, these mostly affect forests and ice, as those are the Dynamics already implemented.
+- Currently, these can only be accessed through a keybind.
+##### Music:
+- Add the TSL Volume Beta soundtrack songs by Takijana
+- 7 new songs are in the game, replacing the Volume Alpha OST: "Safe", "Triumphant", "Funderar", "Enter the Depths", "Mummy!!", "Stalagmites and Stalactites", and "Hypercurian".
+##### General Improvements:
+- Subsequent loads after the first launch are now finally way faster
 #### v1.5.0
 ##### Dynamic Map Changes:
 - Ice will now thaw all across the map.

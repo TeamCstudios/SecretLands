@@ -1,10 +1,10 @@
-import processing.net.*;
 import processing.sound.*;
+import processing.net.*;
 
 int lastxpos = 9999;int lastypos = 9999;int scene = -10;int tileValue;int tileSelectedValue;int selection;int selDir = 1;int selX;
 int selY;int objectValue;int currentObjectID;boolean sprint;int framecounter = 1;int frameruleCounter = 0; int framerate; int frameStorage = 0; int timeStorage = 0;
 int xpos;int ypos;int zpos;int xm = 0;int ym = 0;int health;int cSpeed = 1;int playerColor = 1;int countdown = -1; int attackPower = 1; int armor = 0; int armorPower = 0; 
-int tX; int tY; int tState; final String verCode = "a150"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
+int tX; int tY; int tState; final String verCode = "a160"; String worldName; String textEntry = ""; String test; boolean isLatestRelease; boolean attack;
 int inputEntryHorz = 0; int inputEntryVert = 0; int loadingPercentage = 0; int nullCountdown = 0; String nullFeedback; int progress; int difficulty = 2;
 final boolean isOSX = platform == MACOSX;
 
@@ -24,6 +24,7 @@ void draw(){
   if(scene == -10){
     loadingPercentage(1);
     scene++;
+    sound.volume(0);
   }else if(scene == -9){
     downloadSchematics();
     scene++;
@@ -56,6 +57,7 @@ void draw(){
     loadingPercentage(2);
     scene++;
   }else if(scene == -1){
+    stopmusic();
     loadingPercentage(1);
     versionz();
     loadSettings();
@@ -93,7 +95,7 @@ void draw(){
     text("The Secret Lands belongs to Team CStudios Organization.",700,200);
     text("Terrain algorithm by Yoctobyte and MrJoCrafter (2017-2019)",700,210);
     text("All other programming created by MrJoCrafter (2020-)",700,220);
-    text("Soundtrack by Takijana and MrJoCrafter(2020-)",700,230);
+    text("Soundtrack by Takijana (2023-)",700,230);
     text("Controls",600,400);
     text("Arrow Keys / WASD: Move/Select",600,410);
     text("E: Mine",600,420);
@@ -149,16 +151,7 @@ void draw(){
     drawHealth();
     drawArmor();
     doPlayMusic();
-    if(framecounter % 3 == 0 && random(1) > .88){
-      thawIce(9900);
-      killCacti();
-    }
-    if(framecounter % 4 == 0 && random(1) > .88){
-      regrowForest(4500);
-    }
-    if(framecounter % 5 == 0 && random(1) > .66){
-      growApples(4500);
-    }
+    handleWorldChanges();
   }else if(scene == 9){
     background(0,0,240); 
     drawTerrain();
@@ -231,8 +224,9 @@ void draw(){
   textSize(10);
   fill(45);
   text("The Secret Lands, Version " + versionCodeStated(),800,690);
-  if(scene == 3 || scene == 9){  
+  if(scene == 3 || scene == 9){
     text("{" + (xpos + (width/xFOV/2)) + "," + (ypos + (height/xFOV/2)) + "," + zpos + "}",10,690);
+    text("Current World Event: " + worldEventNames[worldEvent],200,690);
     if(selection == 0){  
       text("Placing: None",470,690);
     }else if(selection == 1){  
@@ -293,6 +287,16 @@ void keyPressed(){
     }
     if(key == 'x' || key == 'X'){
       changeSelection();
+    }
+    
+    if(key == ',' || key == '<'){
+      if(worldEvent == 0){
+        worldEvent = 1;
+      }else if(worldEvent == 1){
+        worldEvent = 2;
+      }else{
+        worldEvent = 0;
+      }
     }
     if(key == 'z' || key == 'Z'){
       if(selDir < 4){
