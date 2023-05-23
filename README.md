@@ -13,7 +13,7 @@ not reached yet!
 - Currently, these can only be accessed through a keybind.
 ##### Music:
 - Add the TSL Volume Beta soundtrack songs by Takijana
-- 7 new songs are in the game, replacing the Volume Alpha OST: "Safe", "Triumphant", "Funderar", "Enter the Depths", "Mummy!!", "Stalagmites and Stalactites", and "Hypercurian".
+- 7 new songs are in the game so far, replacing the Volume Alpha OST: "Safe", "Triumphant", "Funderar", "Enter the Depths", "Mummy!!", "Stalagmites and Stalactites", and "Hypercurian".
 ##### General Improvements:
 - Subsequent loads after the first launch are now finally way faster
 #### v1.5.0
