@@ -7,7 +7,7 @@ void setup(){
   size(800,600);
   background(50);
   for(int i = 0; i < lx;i++){for(int j = 0; j < ly;j++){
-      tiles[i][j] = 7;
+      tiles[i][j] = 0;
   }}
 }
 
@@ -22,7 +22,8 @@ void draw(){
   for(int i = 0; i < lx;i++){
     for(int j = 0; j < ly;j++){
       noStroke();
-      if(tiles[i][j] == 1){fill(250,10,10);}
+      if(tiles[i][j] == 0){if(flash){fill(130);}else{fill(150);}}
+      else if(tiles[i][j] == 1){fill(250,10,10);}
       else if(tiles[i][j] == 2){fill(60);}
       else if(tiles[i][j] == 3){fill(70);}
       else if(tiles[i][j] == 4){fill(80);}
@@ -47,6 +48,7 @@ void draw(){
       else if(tiles[i][j] == -7){fill(111,125,113);}
       else if(tiles[i][j] == -8){fill(84,109,133);}
       else if(tiles[i][j] == -9){fill(86,199,30);}
+      else if(tiles[i][j] == -10){fill(237,195,43);}
       else if(tiles[i][j] == -31){fill(117,96,28);}
       if(tiles[i][j] < 0){stroke(0);}
       if(i == xSel && j == ySel){
@@ -78,16 +80,12 @@ void keyPressed(){
   }
   if(key == 'z' || key == 'Z'){
     if(brush == -31){
-      brush = -9;
-    }else if(brush > -10 && brush < -5){
+      brush = -10;
+    }else if(brush > -11 && brush < -5){
       brush++;
     }else if(brush == -5){
       brush = -2;
-    }else if(brush == -2){
-      brush = -1;
-    }else if(brush == -1){
-      brush = 1;
-    }else if(brush > 0 && brush < 18){
+    }else if(brush > -5 && brush < 18){
       brush++;
     }else if(brush == 18){
       brush = -31;
